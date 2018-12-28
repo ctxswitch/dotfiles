@@ -36,7 +36,7 @@ init-vim-plugins: $(VIM_PLUGINS)
 	# Initialize the subtrees
 
 %.git:
-	echo $(lastword $(subst /, ,$*))
+	$(MAKE_PATH)init-subtree.sh $(MAKE_PATH)vim/bundle $* master
 
 # git remote add sorin-ionescu@prezto https://github.com/sorin-ionescu/prezto.git
 # git subtree add --squash --prefix=prezto/ sorin-ionescu@prezto master
