@@ -13,5 +13,8 @@ echo "Working on $NAME: ($REPO)"
 git remote | grep $NAME 2>&1 >/dev/null
 if [[ $? -ne 0 ]] ; then
     git remote add $NAME https://$REPO
+fi
+
+if ! [[ -d ${PREFIX}/${PROJECT} ]] ; then
     git subtree add --squash --prefix=${PREFIX}/${PROJECT} ${NAME} ${BRANCH}
 fi

@@ -35,4 +35,4 @@ VIM_PLUGINS = \
 .PHONY: init-vim-plugins
 init-vim-plugins: $(VIM_PLUGINS)
 %.git:
-	$(MAKE_PATH)init-subtree.sh $(MAKE_PATH)vim/bundle $% master
+	$(MAKE_PATH)init-subtree.sh ./vim/bundle $@ master
