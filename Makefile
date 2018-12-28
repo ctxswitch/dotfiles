@@ -32,11 +32,7 @@ VIM_PLUGINS = \
 	github.com/Raimondi/delimitMate.git \
 	github.com/godlygeek/tabular.git
 
+.PHONY: init-vim-plugins
 init-vim-plugins: $(VIM_PLUGINS)
-	# Initialize the subtrees
-
 %.git:
-	$(MAKE_PATH)init-subtree.sh $(MAKE_PATH)vim/bundle $* master
-
-# git remote add sorin-ionescu@prezto https://github.com/sorin-ionescu/prezto.git
-# git subtree add --squash --prefix=prezto/ sorin-ionescu@prezto master
+	$(MAKE_PATH)init-subtree.sh $(MAKE_PATH)vim/bundle $% master
