@@ -23,9 +23,9 @@ VIM_PLUGINS = \
 	github.com/Raimondi/delimitMate.git \
 	github.com/godlygeek/tabular.git \
 	github.com/airblade/vim-gitgutter.git \
-	github.com/stephpy/vim-yaml \
-	github.com/terryma/vim-multiple-cursors \
-	github.com/altercation/vim-colors-solarized
+	github.com/stephpy/vim-yaml.git \
+	github.com/terryma/vim-multiple-cursors.git \
+	github.com/altercation/vim-colors-solarized.git
 
 .PHONY: install-vim
 install-vim: # install vim and friends
