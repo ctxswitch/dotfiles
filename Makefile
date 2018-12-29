@@ -11,7 +11,7 @@ install-fonts: ## Installs the powerline fonts
 
 .PHONY: install-prezto
 install-prezto: # Installs prezto and zsh configs
-	ln -snf $(MAKE_PATH)prezto $(PREFIX)/.zprezto
+	git clone --recursive https://github.com/sorin-ionescu/prezto.git $(PREFIX)/.zprezto
 	ln -snf $(MAKE_PATH)prezto/runcoms/zlogout $(PREFIX)/.zlogout
 	ln -snf $(MAKE_PATH)prezto/runcoms/zprofile $(PREFIX)/.zprofile
 	ln -snf $(MAKE_PATH)prezto/runcoms/zshenv $(PREFIX)/.zshenv

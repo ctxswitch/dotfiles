@@ -2,6 +2,15 @@ execute pathogen#infect()
 
 syntax on
 set background=dark
-colorscheme solarized
+colorscheme jellybeans
+let g:jellybeans_use_term_italics = 1
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'jellybeans',
+      \ }
 
 filetype plugin indent on
