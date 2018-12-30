@@ -9,7 +9,6 @@ install: install-fonts install-prezto install-vim
 
 .PHONY: install-fonts
 install-fonts: ## Installs the powerline fonts
-	ln -snf $(MAKE_PATH)fonts $(PREFIX)/fonts
 	$(MAKE_PATH)fonts/install.sh
 
 .PHONY: install-prezto
