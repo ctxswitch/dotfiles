@@ -22,3 +22,6 @@
 [submodule "vim/bundle/jellybeans.vim"]
 	path = vim/bundle/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "fonts"]
+	path = fonts
+	url = https://github.com/powerline/fonts

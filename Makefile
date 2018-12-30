@@ -32,14 +32,13 @@ install-vim: # install vim and friends
 ###############################################################################
 ### Update targets
 ###############################################################################
+.PHONY: update
+update: update-pathogen update-submodules
+
 .PHONY: update-pathogen
 update-pathogen: # Updates the pathogen
 	curl -LSso $(MAKE_PATH)vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-###############################################################################
-### Targets to rebuild the submodules if required.  Probably won't actually 
-### Need them.
-###############################################################################
-.PHONY: init
-init:
+.PHONY: update-submodules
+update-submodules:
 	git submodule update --init --recursive
