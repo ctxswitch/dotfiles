@@ -1,14 +1,5 @@
 PREFIX ?= $(HOME)
 MAKE_PATH ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-VIM_PLUGINS = \
-	github.com/Raimondi/delimitMate.git \
-	github.com/godlygeek/tabular.git \
-	github.com/airblade/vim-gitgutter.git \
-	github.com/stephpy/vim-yaml.git \
-	github.com/terryma/vim-multiple-cursors.git \
-	github.com/altercation/vim-colors-solarized.git \
-	github.com/nanotech/jellybeans.vim.git \
-	github.com/itchyny/lightline.vim.git
 
 ###############################################################################
 ### Install targets
@@ -35,6 +26,8 @@ install-prezto: # Installs prezto and zsh configs
 install-vim: # install vim and friends
 	ln -snf $(MAKE_PATH)vim $(PREFIX)/.vim
 	ln -snf $(MAKE_PATH)vim/vimrc $(PREFIX)/.vimrc
+	sudo ln -snf $(MAKE_PATH)vim /root/.vim
+	sudo ln -snf $(MAKE_PATH)vim/vimrc /root/.vimrc
 
 ###############################################################################
 ### Update targets
@@ -50,12 +43,3 @@ update-pathogen: # Updates the pathogen
 .PHONY: init
 init:
 	git submodule update --init --recursive
-
-# .PHONY: init-prezto
-# init-prezto: # Clone prezto into .zprezto
-# 	git submodule add https://github.com/sorin-ionescu/prezto.git
-
-# .PHONY: init-vim-plugins
-# init-vim-plugins: $(VIM_PLUGINS) # Add the vim plugins as subtrees
-# %.git:
-# 	$(MAKE_PATH)init-subtree.sh vim/bundle $@ master
