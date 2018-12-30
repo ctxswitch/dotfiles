@@ -23,10 +23,11 @@ install-fonts: ## Installs the powerline fonts
 
 .PHONY: install-prezto
 install-prezto: # Installs prezto and zsh configs
-	ln -snf $(PREFIX)/.zprezto/runcoms/zlogout $(PREFIX)/.zlogout
-	ln -snf $(PREFIX)/.zprezto/runcoms/zprofile $(PREFIX)/.zprofile
-	ln -snf $(PREFIX)/.zprezto/runcoms/zshenv $(PREFIX)/.zshenv
-	ln -snf $(PREFIX)/.zprezto/runcoms/zshrc $(PREFIX)/.zshrc
+	ln -snf $(MAKE_PATH)prezto $(PREFIX)/.zprezto
+	ln -snf $(MAKE_PATH)prezto/runcoms/zlogout $(PREFIX)/.zlogout
+	ln -snf $(MAKE_PATH)prezto/runcoms/zprofile $(PREFIX)/.zprofile
+	ln -snf $(MAKE_PATH)prezto/runcoms/zshenv $(PREFIX)/.zshenv
+	ln -snf $(MAKE_PATH)prezto/runcoms/zshrc $(PREFIX)/.zshrc
 	ln -snf $(MAKE_PATH)zsh/zlogin $(PREFIX)/.zlogin
 	ln -snf $(MAKE_PATH)zsh/zpreztorc $(PREFIX)/.zpreztorc
 
@@ -43,14 +44,18 @@ update-pathogen: # Updates the pathogen
 	curl -LSso $(MAKE_PATH)vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 ###############################################################################
-### Initialize some of the resources that we need but don't want to store in
-### the repository.
+### Targets to rebuild the submodules if required.  Probably won't actually 
+### Need them.
 ###############################################################################
-.PHONY: init-prezto
-init-prezto: # Clone prezto into .zprezto
-	git clone --recursive https://github.com/sorin-ionescu/prezto.git $(PREFIX)/.zprezto
+.PHONY: init
+init:
+	git submodule update --init --recursive
 
-.PHONY: init-vim-plugins
-init-vim-plugins: $(VIM_PLUGINS) # Add the vim plugins as subtrees
-%.git:
-	$(MAKE_PATH)init-subtree.sh vim/bundle $@ master
+# .PHONY: init-prezto
+# init-prezto: # Clone prezto into .zprezto
+# 	git submodule add https://github.com/sorin-ionescu/prezto.git
+
+# .PHONY: init-vim-plugins
+# init-vim-plugins: $(VIM_PLUGINS) # Add the vim plugins as subtrees
+# %.git:
+# 	$(MAKE_PATH)init-subtree.sh vim/bundle $@ master
