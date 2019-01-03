@@ -17,7 +17,7 @@ install-prezto: # Installs prezto and zsh configs
 	ln -snf $(MAKE_PATH)prezto/runcoms/zlogout $(PREFIX)/.zlogout
 	ln -snf $(MAKE_PATH)prezto/runcoms/zprofile $(PREFIX)/.zprofile
 	ln -snf $(MAKE_PATH)prezto/runcoms/zshenv $(PREFIX)/.zshenv
-	ln -snf $(MAKE_PATH)prezto/runcoms/zshrc $(PREFIX)/.zshrc
+	ln -snf $(MAKE_PATH)zsh/zshrc $(PREFIX)/.zshrc
 	ln -snf $(MAKE_PATH)zsh/zlogin $(PREFIX)/.zlogin
 	ln -snf $(MAKE_PATH)zsh/zpreztorc $(PREFIX)/.zpreztorc
 
