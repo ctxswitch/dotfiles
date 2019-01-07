@@ -41,3 +41,8 @@ update-pathogen: # Updates the pathogen
 .PHONY: update-submodules
 update-submodules:
 	git submodule update --init --recursive
+
+.PHONY: update-rust
+update-rust: # Install rust
+	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
+

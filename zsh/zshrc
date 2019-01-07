@@ -11,3 +11,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 export EDITOR=vim
+
+# Add cargo to the path if we have rust installed
+if [ -d $HOME/.cargo/bin ] ; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
