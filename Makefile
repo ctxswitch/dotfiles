@@ -1,5 +1,6 @@
 PREFIX ?= $(HOME)
 MAKE_PATH ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+IOSEVKA_VERSION ?= 2.0.2
 
 ###############################################################################
 ### Install targets
@@ -9,7 +10,9 @@ install: install-fonts install-prezto install-vim
 
 .PHONY: install-fonts
 install-fonts: ## Installs the powerline fonts
-	$(MAKE_PATH)fonts/install.sh
+	mkdir -p $(PREFIX)/.local/share
+	ln -snf $(MAKE_PATH)fonts $(PREFIX)/.local/share/fonts
+	fc-cache
 
 .PHONY: install-prezto
 install-prezto: # Installs prezto and zsh configs
@@ -46,3 +49,9 @@ update-submodules:
 update-rust: # Install rust
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 
+.PHONY: update-fonts
+update-fonts: # Install custom fonts
+	mkdir /tmp/iosevka
+	curl -LSso /tmp/iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/01-iosevka-$(IOSEVKA_VERSION).zip
+	unzip /tmp/iosevka.zip -d /tmp/iosevka
+	cp /tmp/iosevka/ttf/* $(MAKE_PATH)/fonts
