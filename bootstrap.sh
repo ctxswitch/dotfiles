@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Install the dependencies
-apt install vim curl git zsh make
+apt -y install vim curl git zsh make jq
 
 # Clone the dotfile
 if [[ -d ${PWD}/dotfiles ]] ; then
-  git clone https://github.com/rlyon/dotfiles.git
+  git clone https://github.com/ctxswitch/dotfiles.git
 fi
 
 # Update the submodules and pathogen

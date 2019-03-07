@@ -31,6 +31,10 @@ install-vim: # install vim and friends
 	sudo ln -snf $(MAKE_PATH)vim /root/.vim
 	sudo ln -snf $(MAKE_PATH)vim/vimrc /root/.vimrc
 
+.PHONY: install-terminal-theme
+install-terminal-theme: # Install the gnome terminal theme
+	$(MAKE_PATH)extra/jellybeans.sh
+
 ###############################################################################
 ### Update targets
 ###############################################################################
