@@ -53,6 +53,12 @@ update-submodules:
 update-rust: # Install rust
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 
+.PHONY: update-golang
+update-golang:
+	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.12.linux-amd64.tar.gz
+	tar zxf /tmp/golang.tar.gz -C /tmp
+	install -m0755 -D /tmp/go/bin/go* $(PREFIX)/bin
+
 .PHONY: update-fonts
 update-fonts: # Install custom fonts
 	mkdir /tmp/iosevka
