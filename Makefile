@@ -6,7 +6,7 @@ IOSEVKA_VERSION ?= 2.0.2
 ### Install targets
 ###############################################################################
 .PHONY: install
-install: install-fonts install-prezto install-vim install-rbenv
+install: install-fonts install-prezto install-vim
 
 .PHONY: install-fonts
 install-fonts: ## Installs the powerline fonts
@@ -32,10 +32,18 @@ install-vim: # install vim and friends
 	sudo ln -snf $(MAKE_PATH)vim/vimrc /root/.vimrc
 
 .PHONY: install-rbenv
-install-rbenv: # link rbenv to ~/.rbenv
+install-rbenv: # link rbenv to ~/.rbenv and add plugins
 	ln -snf $(MAKE_PATH)rbenv $(PREFIX)/.rbenv
 	mkdir -p $(MAKE_PATH)rbenv/plugins
 	ln -snf $(MAKE_PATH)rbenv-plugins/ruby-build $(MAKE_PATH)rbenv/plugins/ruby-build
+	ln -snf $(MAKE_PATH)rbenv-plugins/rbenv-default-gems $(MAKE_PATH)rbenv/plugins/rbenv-default-gems
+	@echo
+	@echo '##############################################################################'
+	@echo '# Ruby Environment                                                           #'
+	@echo '##############################################################################'
+	@echo 'The rbenv plugin ruby-build requires the following packages are installed:    '
+	@echo 'https://github.com/rbenv/ruby-build/wiki#suggested-build-environment          '
+	@echo
 
 .PHONY: install-terminal-theme
 install-terminal-theme: # Install the gnome terminal theme
