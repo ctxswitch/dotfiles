@@ -56,8 +56,8 @@ update-rust: # Install rust
 .PHONY: update-golang
 update-golang:
 	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.12.linux-amd64.tar.gz
-	tar zxf /tmp/golang.tar.gz -C /tmp
-	install -m0755 -D /tmp/go/bin/go* $(PREFIX)/bin
+	mkdir -p $(PREFIX)/go
+	tar zxf /tmp/golang.tar.gz --strip 1 -C $(PREFIX)/go
 
 .PHONY: update-fonts
 update-fonts: # Install custom fonts
