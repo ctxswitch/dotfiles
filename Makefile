@@ -6,7 +6,7 @@ IOSEVKA_VERSION ?= 2.0.2
 ### Install targets
 ###############################################################################
 .PHONY: install
-install: install-fonts install-prezto install-vim
+install: install-fonts install-prezto install-vim install-rbenv
 
 .PHONY: install-fonts
 install-fonts: ## Installs the powerline fonts
