@@ -32,7 +32,7 @@ if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.in
 if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
 
 # Add completion for kubectl
-if [ -f /usr/bin/kubectl ]; then . <(/usr/bin/kubectl completion zsh) fi
+if [ -f /usr/bin/kubectl ]; then . <(/usr/bin/kubectl completion zsh); fi
 
 # Add the path for rbenv if it exists
 if [ -d ~/.rbenv/bin ] ; then
