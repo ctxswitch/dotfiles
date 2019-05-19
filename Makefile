@@ -9,6 +9,8 @@ TERRAFORM_VERSION := 0.11.14
 PACKER_VERSION := 1.4.1
 CHEFDK_VERSION := 3.10.1
 CHEFDK_RELEASE := 1
+RUBY_VERSIONS = 2.5.3 2.6.1
+RUBY_GEMS = rake bundler
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
@@ -49,6 +51,12 @@ ifdef SUDO_USER
 else
 	ln -snf $(MAKE_PATH)tmux $(PREFIX)/.tmux
 	ln -snf $(MAKE_PATH)tmux/tmux.conf $(PREFIX)/.tmux.conf
+endif
+
+.PHONY: gpg
+gpg:
+ifdef SUDO_USER
+	apt -y install pinentry-tty pinentry-curses pinentry-gnome3
 endif
 
 ###############################################################################
@@ -201,19 +209,25 @@ endif
 languages: ruby rust golang
 
 .PHONY: ruby
-install-rbenv: ## link rbenv to ~/.rbenv and add plugins
-ifndef SUDO_USER
+ruby: ## link rbenv to ~/.rbenv and add plugins
+ifdef SUDO_USER
+	apt-get -y install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev \
+		zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev
+else
 	ln -snf $(MAKE_PATH)rbenv $(PREFIX)/.rbenv
 	mkdir -p $(MAKE_PATH)rbenv/plugins
 	ln -snf $(MAKE_PATH)rbenv-plugins/ruby-build $(MAKE_PATH)rbenv/plugins/ruby-build
 	ln -snf $(MAKE_PATH)rbenv-plugins/rbenv-default-gems $(MAKE_PATH)rbenv/plugins/rbenv-default-gems
-	@echo
-	@echo '##############################################################################'
-	@echo '# Ruby Environment                                                           #'
-	@echo '##############################################################################'
-	@echo 'The rbenv plugin ruby-build requires the following packages are installed:    '
-	@echo 'https://github.com/rbenv/ruby-build/wiki#suggested-build-environment          '
-	@echo
+	
+	@for version in $(RUBY_VERSIONS); do \
+		rbenv install --skip-existing $$version ;\
+		for gem in $(RUBY_GEMS); do \
+			RBENV_VERSION=$$version rbenv exec gem install $$gem ;\
+		done ;\
+	done
+
+	rbenv global 2.6.1
+	rbenv rehash
 endif
 
 .PHONY: rust
