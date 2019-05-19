@@ -1,7 +1,6 @@
 {
     "editor.fontLigatures": true,
     "editor.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "workbench.colorTheme": "Jellybeans",
     "editor.fontSize": 14,
     "editor.tabSize": 2,
     "terminal.integrated.fontSize": 14,

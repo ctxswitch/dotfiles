@@ -16,6 +16,10 @@ RUBY_GEMS ?= rake bundler
 GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
+VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
+		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
+		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
+    craigmaslowski.erb
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
@@ -154,6 +158,9 @@ vscode: ## Installs VSCode
 ifdef SUDO_USER
 	snap install code --classic
 else
+	@for ext in $(VSCODE_EXTENSIONS); do \
+		code --install-extension $$ext ;\
+	done
 	ln -snf $(MAKE_PATH)vscode/settings.json $(PREFIX)/.config/Code/User/settings.json
 endif
 

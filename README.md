@@ -1,4 +1,6 @@
-# Dotfiles
+# Enterprise Dotfiles
+
+##### Because anything labeled as "Enterprise" is bloated far beyond it's original intent.
 
 What started out as simple dotfiles has turned into something quite a bit larger.  I've merged in many package installations and base configurations to set the baseline on new installs of my personal workstations.  Currently there are two seperate modes of executing the targets.  If you run `make` with sudo, it will run through application installs and some global configurations.  If you run `make` as your user, your personnal environment is set up.
 
@@ -121,3 +123,4 @@ There are several environment variables that you can set.  They include:
 * `GIT_USER_NAME`: Your git username.
 * `GIT_USER_EMAIL`: Your git email.
 * `GIT_USER_SIGNINGKEY`: Your users git signing key.
+* `VSCODE_EXTENSIONS`: A list of vscode extensions to install.
