@@ -5,6 +5,15 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
 # Execute code that does not affect the current session in the background.
 {
   zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"

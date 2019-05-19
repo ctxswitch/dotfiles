@@ -1,9 +1,7 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Load snap bin if snap is available
+if [[ -x /usr/bin/snap ]]; then
+  export PATH=/snap/bin:$PATH
+fi
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
