@@ -13,13 +13,14 @@ CHEFDK_VERSION ?= 3.10.1
 CHEFDK_DEB_REVISION ?= 1
 RUBY_VERSIONS ?= 2.5.3 2.6.1
 RUBY_GEMS ?= rake bundler
+HUGO_VERSION ?= 0.55.6
 GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
 		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
 		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
-    craigmaslowski.erb
+		craigmaslowski.erb
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
@@ -111,15 +112,6 @@ ifdef SUDO_USER
 	# Get rid of wayland and go back to xorg due to incompatibilities.
 	install -m 0644 $(MAKE_PATH)gnome/custom.conf /etc/gdm3/custom.conf
 	ln -snf /usr/share/xsessions/gnome-xorg.desktop /usr/share/xsessions/gnome.desktop
-	@echo
-	@echo '##############################################################################'
-	@echo '# Gnome Settings                                                             #'
-	@echo '##############################################################################'
-	@echo 'You will need to rerun `make gnome` after you restart your window manager     '
-	@echo 'without sudo to add the customized settings.  Since we are getting rid of the '
-	@echo 'ubuntu packaged gnome desktop in favor of the vanilla desktop, you will need  '
-	@echo 'to modify your display manager to Gnome when you log in the next time.        '
-	@echo
 else
 	# Update the settings if we are not running in superuser mode.
 	gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
@@ -222,6 +214,13 @@ ifdef SUDO_USER
 	install -D $(MAKE_PATH)sources.list.d/google-cloud.$(RELEASE).list /etc/apt/sources.list.d
 	apt-get -y update
 	apt -y install google-cloud-sdk
+endif
+
+.PHONY: hugo
+hugo:
+ifdef SUDO_USER
+	curl -LSso $(MAKE_PATH)tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_Linux-64bit.deb
+	apt -y install $(MAKE_PATH)tmp/hugo.deb
 endif
 
 ###############################################################################
