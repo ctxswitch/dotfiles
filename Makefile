@@ -1,16 +1,21 @@
-PREFIX ?= $(HOME)
-MAKE_PATH ?= $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+PREFIX := $(HOME)
+MAKE_PATH := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 RELEASE := $(shell lsb_release -cs)
-PREV_RELEASE ?= cosmic
-KUBECTL_VERSION := $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-DOCKER_MACHINE_VERSION := v0.16.0
-VAGRANT_VERSION := 2.2.4
-TERRAFORM_VERSION := 0.11.14
-PACKER_VERSION := 1.4.1
-CHEFDK_VERSION := 3.10.1
-CHEFDK_RELEASE := 1
-RUBY_VERSIONS = 2.5.3 2.6.1
-RUBY_GEMS = rake bundler
+
+include $(MAKE_PATH).local
+ALTERNATE_RELEASE ?= cosmic
+KUBECTL_VERSION ?= $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+DOCKER_MACHINE_VERSION ?= v0.16.0
+VAGRANT_VERSION ?= 2.2.4
+TERRAFORM_VERSION ?= 0.11.14
+PACKER_VERSION ?= 1.4.1
+CHEFDK_VERSION ?= 3.10.1
+CHEFDK_DEB_REVISION ?= 1
+RUBY_VERSIONS ?= 2.5.3 2.6.1
+RUBY_GEMS ?= rake bundler
+GIT_USER_NAME ?= Anonymous
+GIT_USER_EMAIL ?= anonymous@gmail.com
+GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
@@ -127,6 +132,16 @@ endif
 .PHONY: devtools
 devtools: build-deps vscode virtual docker kubernetes hashicorp chefdk
 
+.PHONY: git
+git:
+ifdef SUDO_USER
+	apt -y install git
+else
+	@echo git config --global user.name "${GIT_USER_NAME}"
+	@echo git config --global user.email "${GIT_USER_EMAIL}"
+	@echo git config --global user.signingkey ${GIT_USER_SIGNINGKEY}
+endif
+
 .PHONY: build-deps
 build-deps: ## Package dependencies
 ifdef SUDO_USER
@@ -154,7 +169,7 @@ endif
 docker: ## Installs docker
 ifdef SUDO_USER
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-	install -D $(MAKE_PATH)sources.list.d/docker.$(PREV_RELEASE).list /etc/apt/sources.list.d
+	install -D $(MAKE_PATH)sources.list.d/docker.$(ALTERNATE_RELEASE).list /etc/apt/sources.list.d
 	apt-get -y update
 	apt -y install docker-ce
 	usermod -a -G docker $(SUDO_USER)
@@ -189,7 +204,7 @@ endif
 .PHONY: chefdk
 chefdk: ## Install the chef development kit
 ifdef SUDO_USER
-	curl -LSso $(MAKE_PATH)tmp/chefdk.deb https://packages.chef.io/files/stable/chefdk/$(CHEFDK_VERSION)/ubuntu/18.04/chefdk_$(CHEFDK_VERSION)-$(CHEFDK_RELEASE)_amd64.deb
+	curl -LSso $(MAKE_PATH)tmp/chefdk.deb https://packages.chef.io/files/stable/chefdk/$(CHEFDK_VERSION)/ubuntu/18.04/chefdk_$(CHEFDK_VERSION)-$(CHEFDK_DEB_REVISION)_amd64.deb
 	apt -y install $(MAKE_PATH)tmp/chefdk.deb
 endif
 
