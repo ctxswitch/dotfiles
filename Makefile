@@ -17,7 +17,7 @@ install: fonts terminal packages gnome devtools languages
 ### Terminal tools/utilities/shell
 ###############################################################################
 .PHONY: terminal
-terminal: zsh vim
+terminal: zsh vim tmux
 
 .PHONY: zsh
 zsh: ## Installs prezto and zsh configs
@@ -34,12 +34,21 @@ else
 endif
 
 .PHONY: vim
-vim: ## install vim and friends
+vim: ## Install vim and friends
 ifdef SUDO_USER
 	apt -y install vim
 else
 	ln -snf $(MAKE_PATH)vim $(PREFIX)/.vim
 	ln -snf $(MAKE_PATH)vim/vimrc $(PREFIX)/.vimrc
+endif
+
+.PHONY: tmux
+tmux: ## Install and configure tmux
+ifdef SUDO_USER
+	apt -y install tmux xsel
+else
+	ln -snf $(MAKE_PATH)tmux $(PREFIX)/.tmux
+	ln -snf $(MAKE_PATH)tmux/tmux.conf $(PREFIX)/.tmux.conf
 endif
 
 ###############################################################################

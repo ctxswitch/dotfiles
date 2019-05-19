@@ -52,3 +52,18 @@
 [submodule "rbenv-plugins/rbenv-default-gems"]
 	path = rbenv-plugins/rbenv-default-gems
 	url = https://github.com/rbenv/rbenv-default-gems.git
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "tmux/plugins/tmux-pain-control"]
+	path = tmux/plugins/tmux-pain-control
+	url = https://github.com/tmux-plugins/tmux-pain-control.git
+[submodule "tmux/plugins/tmux-logging"]
+	path = tmux/plugins/tmux-logging
+	url = https://github.com/tmux-plugins/tmux-logging.git
+[submodule "tmux/plugins/tmux-yank"]
+	path = tmux/plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
+[submodule "tmux/plugins/tmux-copycat"]
+	path = tmux/plugins/tmux-copycat
+	url = https://github.com/tmux-plugins/tmux-copycat.git
