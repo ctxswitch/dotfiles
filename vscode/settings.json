@@ -22,4 +22,5 @@
     // linters are only run when typing has finished and not for every keypress
     "ruby.lintDebounceTime": 500,
     "window.zoomLevel": 1,
+    "workbench.colorTheme": "Kary Pro Colors － Dark",
 }
