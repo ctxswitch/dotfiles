@@ -133,9 +133,19 @@ git:
 ifdef SUDO_USER
 	apt -y install git
 else
-	@echo git config --global user.name "${GIT_USER_NAME}"
-	@echo git config --global user.email "${GIT_USER_EMAIL}"
-	@echo git config --global user.signingkey ${GIT_USER_SIGNINGKEY}
+	@awk \
+		-v name=$(GIT_USER_NAME) \
+		-v email=$(GIT_USER_EMAIL) \
+		-v key=$(GIT_USER_SIGNING_KEY) \
+		-v github=$(GITHUB_USER) \
+		'{ \
+				gsub("##GIT_USER_NAME##",name); \
+				gsub("##GIT_USER_EMAIL##",email); \
+				gsub("##GIT_USER_SIGNINGKEY##",key); \
+				gsub("##GITHUB_USER##",github); \
+				print \
+		}' git/.gitconfig > $(MAKE_PATH)tmp/gitconfig
+		install $(MAKE_PATH)tmp/gitconfig $(PREFIX)/.gitconfig
 endif
 
 .PHONY: build-deps

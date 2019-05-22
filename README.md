@@ -124,4 +124,5 @@ There are several environment variables that you can set.  They include:
 * `GIT_USER_NAME`: Your git username.
 * `GIT_USER_EMAIL`: Your git email.
 * `GIT_USER_SIGNINGKEY`: Your users git signing key.
+* `GITHUB_USER`: Your Github username.
 * `VSCODE_EXTENSIONS`: A list of vscode extensions to install.
