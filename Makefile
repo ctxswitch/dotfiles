@@ -1,6 +1,7 @@
 PREFIX := $(HOME)
 MAKE_PATH := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 RELEASE := $(shell lsb_release -cs)
+SHELL := /bin/bash
 
 include $(MAKE_PATH).local
 ALTERNATE_RELEASE ?= cosmic
@@ -14,6 +15,7 @@ CHEFDK_DEB_REVISION ?= 1
 RUBY_VERSIONS ?= 2.5.3 2.6.1
 RUBY_GEMS ?= rake bundler
 HUGO_VERSION ?= 0.55.6
+FEX_VERSION ?= 2.0.0
 GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
@@ -98,6 +100,17 @@ endif
 apt-packages: ## Install non-specific packages through apt
 ifdef SUDO_USER
 	apt -y install zeal jq
+endif
+
+.PHONY: source
+source: ## Temporary spot for building packages from source
+# TODO: figure out a better way to handle generic builds
+ifdef SUDO_USER
+	curl -LSso tmp/fex.tar.gz https://github.com/jordansissel/fex/archive/v$(FEX_VERSION).tar.gz
+	tar zxvf tmp/fex.tar.gz -C tmp
+	make -C tmp/fex-$(FEX_VERSION) fex
+	make -C tmp/fex-$(FEX_VERSION) fex.1
+	make -C tmp/fex-$(FEX_VERSION) install
 endif
 
 ###############################################################################

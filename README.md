@@ -121,6 +121,8 @@ There are several environment variables that you can set.  They include:
 * `HUGO_VERSION`: The hugo version to install.
 * `RUBY_VERSIONS`: A list of ruby versions to install.  Accepts any available version to rbenv: `rbenv install -l`
 * `RUBY_GEMS`: A list of gems to install for each version.  Since I use vendoring in most cases, it's usually minimal - as in rake and bundler.
+* `HUGO_VERSION`: Version of the hugo static site generator.
+* `FEX_VERSION`: The version of Jordan Sissel's field extractor [FEX](https://github.com/jordansissel/fex)
 * `GIT_USER_NAME`: Your git username.
 * `GIT_USER_EMAIL`: Your git email.
 * `GIT_USER_SIGNINGKEY`: Your users git signing key.
