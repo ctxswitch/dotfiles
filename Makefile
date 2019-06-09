@@ -22,7 +22,8 @@ GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
 		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
 		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
-		craigmaslowski.erb ms-vscode.cpptools
+		craigmaslowski.erb ms-vscode.cpptools vscode-icons-team.vscode-icons \
+		eamodio.gitlens
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages

@@ -23,4 +23,8 @@
     "ruby.lintDebounceTime": 500,
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Kary Pro Colors － Dark",
+    "workbench.iconTheme": "vscode-icons",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.codeLens.enabled": false,
 }
