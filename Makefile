@@ -8,11 +8,11 @@ ALTERNATE_RELEASE ?= cosmic
 KUBECTL_VERSION ?= $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 DOCKER_MACHINE_VERSION ?= v0.16.0
 VAGRANT_VERSION ?= 2.2.4
-TERRAFORM_VERSION ?= 0.11.14
+TERRAFORM_VERSION ?= 0.12.4
 PACKER_VERSION ?= 1.4.1
 CHEFDK_VERSION ?= 3.10.1
 CHEFDK_DEB_REVISION ?= 1
-RUBY_VERSIONS ?= 2.5.3 2.6.1
+RUBY_VERSIONS ?= 2.4.5 2.5.3 2.6.1
 RUBY_GEMS ?= rake bundler
 HUGO_VERSION ?= 0.55.6
 FEX_VERSION ?= 2.0.0
@@ -23,7 +23,7 @@ VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
 		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
 		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
 		craigmaslowski.erb ms-vscode.cpptools vscode-icons-team.vscode-icons \
-		eamodio.gitlens
+		eamodio.gitlens peterjausovec.vscode-docker
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
@@ -133,6 +133,11 @@ else
 	gsettings set org.gnome.desktop.peripherals.touchpad click-method fingers
 	gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 	gsettings set org.gnome.desktop.background show-desktop-icons false
+	gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Alt><Super>i']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Primary><Alt>i']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Primary><Alt>k']"
+	gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt><Super>i']"
+	
 	$(MAKE_PATH)gnome/jellybeans-term.sh
 endif
 
@@ -178,6 +183,7 @@ else
 		code --install-extension $$ext ;\
 	done
 	ln -snf $(MAKE_PATH)vscode/settings.json $(PREFIX)/.config/Code/User/settings.json
+	ln -snf $(MAKE_PATH)vscode/keybindings.json $(PREFIX)/.config/Code/User/keybindings.json
 endif
 
 .PHONY: virtual
