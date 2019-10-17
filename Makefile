@@ -23,7 +23,7 @@ VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
 		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
 		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
 		craigmaslowski.erb ms-vscode.cpptools vscode-icons-team.vscode-icons \
-		eamodio.gitlens peterjausovec.vscode-docker
+		eamodio.gitlens peterjausovec.vscode-docker sdras.night-owl
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages
