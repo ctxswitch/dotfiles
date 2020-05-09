@@ -27,4 +27,9 @@
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.codeLens.enabled": false,
     "workbench.iconTheme": "kary-notebook-icons",
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true
+    },
+    "vsicons.dontShowNewVersionMessage": true,
 }

@@ -290,7 +290,7 @@ endif
 .PHONY: golang
 golang:
 ifndef SUDO_USER
-	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.12.linux-amd64.tar.gz
+	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
 	mkdir -p $(PREFIX)/go
 	tar zxf /tmp/golang.tar.gz --strip 1 -C $(PREFIX)/go
 endif
