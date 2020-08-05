@@ -12,12 +12,13 @@ export EDITOR=vim
 export GIT_EDITOR=vim
 
 if [ -d $HOME/bin ] ; then export PATH="$HOME/bin:$PATH"; fi
+if ! [ -d $HOME/go ] ; then mkdir -p $HOME/go; fi
 
 # Add goroot and gopath
-if [ -d $HOME/go/bin ] ; then
-  export PATH="$HOME/go/bin:$PATH"
-  export GOROOT=$HOME/go
-  export GOPATH=$HOME
+if [ -d /usr/local/go/bin ] ; then
+  export PATH="/usr/local/go/bin:$PATH"
+  export GOROOT=/usr/local/go
+  export GOPATH=$HOME/go
 fi
 
 # Add cargo to the path if we have rust installed

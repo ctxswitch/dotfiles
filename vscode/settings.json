@@ -22,7 +22,7 @@
     // linters are only run when typing has finished and not for every keypress
     "ruby.lintDebounceTime": 500,
     "window.zoomLevel": 1,
-    "workbench.colorTheme": "Night Owl",
+    "workbench.colorTheme": "Base16 Dark Twilight",
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.codeLens.enabled": false,
@@ -32,4 +32,6 @@
         "**/*.pyc": true
     },
     "vsicons.dontShowNewVersionMessage": true,
+    "go.useLanguageServer": true,
+    "go.formatTool": "goimports",
 }

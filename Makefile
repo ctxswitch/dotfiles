@@ -5,6 +5,7 @@ SHELL := /bin/bash
 
 include $(MAKE_PATH).local
 ALTERNATE_RELEASE ?= cosmic
+OS_DIST ?= $(shell uname)
 KUBECTL_VERSION ?= $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 DOCKER_MACHINE_VERSION ?= v0.16.0
 VAGRANT_VERSION ?= 2.2.4
@@ -207,8 +208,10 @@ endif
 .PHONY: kubernetes
 kubernetes: ## Installs kubectl and local testing tools
 ifdef SUDO_USER
-	curl -LSso $(MAKE_PATH)tmp/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-	install $(MAKE_PATH)tmp/minikube /usr/local/bin/minikube
+	# curl -LSso $(MAKE_PATH)tmp/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+	# install $(MAKE_PATH)tmp/minikube /usr/local/bin/minikube
+	curl -LSso /tmp/kind https://kind.sigs.k8s.io/dl/v0.8.0/kind-$(OS_DIST)-amd64
+	chmod +x /tmp/kind && mv /tmp/kind /usr/local/bin/kind
 	curl -LSso $(MAKE_PATH)tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/$(KUBECTL_VERSION)/bin/linux/amd64/kubectl
 	install $(MAKE_PATH)tmp/kubectl /usr/local/bin/kubectl
 	curl -LSso $(MAKE_PATH)tmp/docker-machine https://github.com/docker/machine/releases/download/$(DOCKER_MACHINE_VERSION)/docker-machine-Linux-x86_64
@@ -289,10 +292,16 @@ endif
 
 .PHONY: golang
 golang:
-ifndef SUDO_USER
+ifdef SUDO_USER
 	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
-	mkdir -p $(PREFIX)/go
-	tar zxf /tmp/golang.tar.gz --strip 1 -C $(PREFIX)/go
+	mkdir -p /usr/local/go
+	tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
+endif
+
+.PHONY: python
+python:
+ifdef SUDO_USER
+	apt-get install python3 python3-pip python3-virtualenv
 endif
 
 ###############################################################################
