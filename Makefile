@@ -1,9 +1,10 @@
 PREFIX := $(HOME)
 MAKE_PATH := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-RELEASE := $(shell lsb_release -cs)
+# RELEASE := $(shell lsb_release -cs)
 SHELL := /bin/bash
 
 include $(MAKE_PATH).local
+OS_NAME := $(shell uname -s | tr A-Z a-z)
 ALTERNATE_RELEASE ?= cosmic
 OS_DIST ?= $(shell uname)
 KUBECTL_VERSION ?= $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -292,16 +293,10 @@ endif
 
 .PHONY: golang
 golang:
-ifdef SUDO_USER
-	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
-	mkdir -p /usr/local/go
-	tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
-endif
-
-.PHONY: python
-python:
-ifdef SUDO_USER
-	apt-get install python3 python3-pip python3-virtualenv
+ifndef SUDO_USER
+	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.14.$(OS_NAME)-amd64.tar.gz
+	mkdir -p $(PREFIX)/go
+	tar zxf /tmp/golang.tar.gz --strip 1 -C $(PREFIX)/go
 endif
 
 ###############################################################################

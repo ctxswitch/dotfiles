@@ -15,11 +15,10 @@ if [ -d $HOME/bin ] ; then export PATH="$HOME/bin:$PATH"; fi
 if ! [ -d $HOME/go ] ; then mkdir -p $HOME/go; fi
 
 # Add goroot and gopath
-if [ -d /usr/local/go/bin ] ; then
-  export PATH="/usr/local/go/bin:$PATH"
-  export GOROOT=/usr/local/go
-  export GOPATH=$HOME/go
-fi
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=/usr/local/go/bin:$PATH
+export PATH=/usr/local/kubebuilder/bin:$PATH
 
 # Add cargo to the path if we have rust installed
 if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
@@ -39,3 +38,8 @@ if [ -d ~/.rbenv/bin ] ; then
   eval "$(rbenv init -)"  
 fi
 
+PATH=$PATH:/Users/rlyon/.lyftkube-bin
+
+if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
+
+export GPG_TTY=$(tty)

@@ -33,5 +33,5 @@
     },
     "vsicons.dontShowNewVersionMessage": true,
     "go.useLanguageServer": true,
-    "go.formatTool": "goimports",
+    "go.formatTool": "goimports"
 }
