@@ -1,9 +1,10 @@
 PREFIX := $(HOME)
 MAKE_PATH := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-RELEASE := $(shell lsb_release -cs)
+# RELEASE := $(shell lsb_release -cs)
 SHELL := /bin/bash
 
 include $(MAKE_PATH).local
+OS_NAME := $(shell uname -s | tr A-Z a-z)
 ALTERNATE_RELEASE ?= cosmic
 OS_DIST ?= $(shell uname)
 KUBECTL_VERSION ?= $(shell curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)

@@ -34,5 +34,5 @@
     "vsicons.dontShowNewVersionMessage": true,
     "go.useLanguageServer": true,
     "go.formatTool": "goimports",
-    "C_Cpp.updateChannel": "Insiders",
+    "C_Cpp.updateChannel": "Insiders"
 }
