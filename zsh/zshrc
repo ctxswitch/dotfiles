@@ -39,3 +39,5 @@ if [ -d ~/.rbenv/bin ] ; then
   eval "$(rbenv init -)"  
 fi
 
+export PATH=$PATH:/usr/local/kubebuilder/bin
+

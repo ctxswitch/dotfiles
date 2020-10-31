@@ -293,7 +293,7 @@ endif
 .PHONY: golang
 golang:
 ifdef SUDO_USER
-	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
+	curl -LSso /tmp/golang.tar.gz https://dl.google.com/go/go1.15.3.linux-amd64.tar.gz
 	mkdir -p /usr/local/go
 	tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
 endif
@@ -302,6 +302,7 @@ endif
 python:
 ifdef SUDO_USER
 	apt-get install python3 python3-pip python3-virtualenv
+	pip3 install pre-commit
 endif
 
 ###############################################################################
