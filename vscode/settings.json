@@ -34,5 +34,9 @@
     "vsicons.dontShowNewVersionMessage": true,
     "go.useLanguageServer": true,
     "go.formatTool": "goimports",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.languageServer": "Pylance",
+    "java.project.importHint": false,
     "C_Cpp.updateChannel": "Insiders"
 }
