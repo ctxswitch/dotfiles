@@ -35,6 +35,8 @@
     "go.useLanguageServer": true,
     "go.formatTool": "goimports",
     "C_Cpp.updateChannel": "Insiders",
+    "editor.suggestSelection": "first",
+    "python.languageServer": "Pylance",
 
     "[rust]": {
         "editor.tabSize": 4,
