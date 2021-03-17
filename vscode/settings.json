@@ -22,7 +22,7 @@
     // linters are only run when typing has finished and not for every keypress
     "ruby.lintDebounceTime": 500,
     "window.zoomLevel": 1,
-    "workbench.colorTheme": "Base16 Dark Twilight",
+    "workbench.colorTheme": "GitHub Dark",
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.codeLens.enabled": false,
@@ -34,5 +34,48 @@
     "vsicons.dontShowNewVersionMessage": true,
     "go.useLanguageServer": true,
     "go.formatTool": "goimports",
-    "C_Cpp.updateChannel": "Insiders"
+    "C_Cpp.updateChannel": "Insiders",
+
+    "[rust]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": false,
+    },
+
+    "[go]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": false,
+    },
+    "extensions.ignoreRecommendations": true,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "workbench.colorCustomizations": {
+        "terminal.background":"#181818",
+        "terminal.foreground":"#ADADAD",
+        "terminalCursor.background":"#ADADAD",
+        "terminalCursor.foreground":"#ADADAD",
+        "terminal.ansiBlack":"#181818",
+        "terminal.ansiBrightBlack":"#636363",
+        "terminal.ansiRed":"#CF6A4C",
+        "terminal.ansiBrightRed":"#F79274",
+        "terminal.ansiGreen":"#99AD6A",
+        "terminal.ansiBrightGreen":"#C1D592",
+        "terminal.ansiYellow":"#D8AD4C",
+        "terminal.ansiBrightYellow":"#FFD574",
+        "terminal.ansiBlue":"#597BC5",
+        "terminal.ansiBrightBlue":"#81A3ED",
+        "terminal.ansiMagenta":"#A037B0",
+        "terminal.ansiBrightMagenta":"#C85FD8",
+        "terminal.ansiCyan":"#71B9F8",
+        "terminal.ansiBrightCyan":"#99E1FF",
+        "terminal.ansiWhite":"#ADADAD",
+        "terminal.ansiBrightWhite":"#D5D5D5"
+    },
+    "workbench.preferredDarkColorTheme": "GitHub Dark",
+    "workbench.preferredLightColorTheme": "GitHub Light"
 }
