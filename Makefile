@@ -21,11 +21,13 @@ FEX_VERSION ?= 2.0.0
 GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
-VSCODE_EXTENSIONS ?= bungcip.better-toml dasfranck.jellybeans \
-		karyfoundation.theme-karyfoundation-themes mauve.terraform pendrica.chef \
-		rebornix.ruby rust-lang.rust sidneys1.gitconfig teabyii.ayu ms-vscode.go \
-		craigmaslowski.erb ms-vscode.cpptools vscode-icons-team.vscode-icons \
-		eamodio.gitlens peterjausovec.vscode-docker sdras.night-owl
+VSCODE_EXTENSIONS ?= bungcip.better-toml eamodio.gitlens \
+	golang.go hashicorp.terraform ms-azuretools.vscode-docker \
+	ms-python.python ms-python.vscode-pylance ms-vscode.cpptools \
+	ms-vsliveshare.vsliveshare rebornix.ruby redhat.vscode-yaml \
+	rust-lang.rust sidneys1.gitconfig swashata.beautiful-ui \
+	teabyii.ayu vscode-icons-team.vscode-icons wingrunr21.vscode-ruby \
+	GitHub.github-vscode-theme
 
 .PHONY: install
 install: fonts terminal packages gnome devtools languages

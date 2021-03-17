@@ -37,17 +37,24 @@
     "C_Cpp.updateChannel": "Insiders",
     "editor.suggestSelection": "first",
     "python.languageServer": "Pylance",
-
     "[rust]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
         "editor.insertSpaces": false,
     },
-
     "[go]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
         "editor.insertSpaces": false,
+    },
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+    },
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
     },
     "extensions.ignoreRecommendations": true,
     "workbench.editorAssociations": [
@@ -57,11 +64,11 @@
         }
     ],
     "workbench.colorCustomizations": {
-        "terminal.background":"#181818",
+        "terminal.background":"#15181b",
         "terminal.foreground":"#ADADAD",
         "terminalCursor.background":"#ADADAD",
         "terminalCursor.foreground":"#ADADAD",
-        "terminal.ansiBlack":"#181818",
+        "terminal.ansiBlack":"#15181b",
         "terminal.ansiBrightBlack":"#636363",
         "terminal.ansiRed":"#CF6A4C",
         "terminal.ansiBrightRed":"#F79274",
@@ -79,5 +86,6 @@
         "terminal.ansiBrightWhite":"#D5D5D5"
     },
     "workbench.preferredDarkColorTheme": "GitHub Dark",
-    "workbench.preferredLightColorTheme": "GitHub Light"
+    "workbench.preferredLightColorTheme": "GitHub Light",
+    "go.toolsManagement.autoUpdate": true
 }
