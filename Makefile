@@ -183,11 +183,16 @@ vscode: ## Installs VSCode
 ifdef SUDO_USER
 	snap install code --classic
 else
+ifeq ($(shell uname -s), Darwin)
+	config_path="Library/Application Support/Code/User/settings.json"
+else
+	config_path=".config/Code/User"
+endif
 	@for ext in $(VSCODE_EXTENSIONS); do \
 		code --install-extension $$ext ;\
 	done
-	ln -snf $(MAKE_PATH)vscode/settings.json $(PREFIX)/.config/Code/User/settings.json
-	ln -snf $(MAKE_PATH)vscode/keybindings.json $(PREFIX)/.config/Code/User/keybindings.json
+	ln -snf $(MAKE_PATH)vscode/settings.json "$(PREFIX)/$(config_path)/settings.json"
+	ln -snf $(MAKE_PATH)vscode/keybindings.json "$(PREFIX)/$(config_path)/keybindings.json"
 endif
 
 .PHONY: virtual
