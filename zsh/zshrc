@@ -3,6 +3,10 @@ if [[ -x /usr/bin/snap ]]; then
   export PATH=/snap/bin:$PATH
 fi
 
+if [[ -d /Applications ]]; then
+  export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
