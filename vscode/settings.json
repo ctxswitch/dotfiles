@@ -1,9 +1,13 @@
 {
     "editor.fontLigatures": true,
     "editor.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontSize": 14,
+    "editor.inlineHints.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "scm.inputFontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "debug.console.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.codeLensFontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 13,
     "editor.tabSize": 2,
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 13,
     "terminal.integrated.fontFamily": "'Iosevka'",
     "ruby.format": "rubocop",
     "ruby.intellisense": "rubyLocate",
@@ -40,21 +44,21 @@
     "[rust]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
-        "editor.insertSpaces": false,
+        "editor.insertSpaces": false
     },
     "[go]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
-        "editor.insertSpaces": false,
+        "editor.insertSpaces": false
     },
     "[python]": {
         "editor.tabSize": 4,
         "editor.formatOnSave": true,
-        "editor.insertSpaces": true,
+        "editor.insertSpaces": true
     },
     "[yaml]": {
         "editor.tabSize": 2,
-        "editor.insertSpaces": true,
+        "editor.insertSpaces": true
     },
     "extensions.ignoreRecommendations": true,
     "workbench.editorAssociations": [
