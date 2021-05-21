@@ -7,7 +7,7 @@ include $(MAKE_PATH).local
 OS_NAME := $(shell uname -s)
 OS_NAME_LOWER := $(shell echo $(OS_NAME) | tr A-Z a-z)
 OS_DIST ?= $(shell uname)
-ifeq ($(OS_NAME), Darwin)
+ifneq ($(OS_NAME), Darwin)
 RELEASE := $(shell lsb_release -cs)
 ALTERNATE_RELEASE ?= cosmic
 endif
@@ -62,8 +62,6 @@ VSCODE_CONFIG_PATH ?= Library/Application Support/Code/User
 else
 VSCODE_CONFIG_PATH ?= $(HOME)/.config/Code/User
 endif
-
-include ./mk/Makefile.$(OS_NAME_LOWER)
 
 .PHONY: all ## Run all configuration and installation targets
 all: install configure
@@ -139,6 +137,7 @@ endif
 .PHONY: configure-git
 configure-git:
 ifndef SUDO_USER
+	@mkdir -p tmp
 	@awk \
 		-v name=$(GIT_USER_NAME) \
 		-v email=$(GIT_USER_EMAIL) \
@@ -160,8 +159,8 @@ ifndef SUDO_USER
 	@for ext in $(VSCODE_EXTENSIONS); do \
 		code --install-extension $$ext ;\
 	done
-	ln -snf $(MAKE_PATH)vscode/settings.json "$(PREFIX)/$(config_path)/settings.json"
-	ln -snf $(MAKE_PATH)vscode/keybindings.json "$(PREFIX)/$(config_path)/keybindings.json"
+	ln -snf $(MAKE_PATH)vscode/settings.json "$(PREFIX)/$(VSCODE_CONFIG_PATH)/settings.json"
+	ln -snf $(MAKE_PATH)vscode/keybindings.json "$(PREFIX)/$(VSCODE_CONFIG_PATH)/keybindings.json"
 endif
 
 .PHONY: configure-rbenv
@@ -210,13 +209,14 @@ ifdef SUDO_USER
 endif
 else
 ifndef SUDO_USER
-	NONINTERACTIVE=1 ./brew/install.sh
-	xcode-select --install
-	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+##	NONINTERACTIVE=1 ./brew/install.sh
+##	xcode-select --install
+## 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
 	brew install zsh
 	brew install python3
 	brew install git
 	brew install jq
+	brew install bash
 endif
 endif
 
@@ -246,13 +246,13 @@ ifdef SUDO_USER
 endif
 
 .PHONY: install-rust ## Install the Rust programming language
-rust:
+install-rust:
 ifndef SUDO_USER
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 endif
 
 .PHONY: install-golang ## Install the Go programming language
-golang:
+install-golang:
 ifdef SUDO_USER
 	curl -LSso tmp/golang.tar.gz https://dl.google.com/go/go$(GOLANG_VERSION).$(OS_NAME_LOWER)-amd64.tar.gz
 	mkdir -p /usr/local/go
@@ -266,7 +266,7 @@ ifdef SUDO_USER
 ifeq ($(OS_NAME), Linux)
 	apt -y install $(MAKE_PATH)tmp/$(HUGO_FILE)
 else
-	@echo "TODO"
+	brew install hugo
 endif
 endif
 
@@ -275,7 +275,7 @@ install-k8s: ## Installs kubectl and local testing tools
 ifdef SUDO_USER
 	curl -LSso /tmp/kind https://kind.sigs.k8s.io/dl/v$(KIND_VERSION)/kind-$(OS_NAME_LOWER)-amd64
 	chmod +x /tmp/kind && mv /tmp/kind /usr/local/bin/kind
-	curl -LSso $(MAKE_PATH)tmp/kubectl $(KUBECTL_URL
+	curl -LSso $(MAKE_PATH)tmp/kubectl $(KUBECTL_URL)
 	install $(MAKE_PATH)tmp/kubectl /usr/local/bin/kubectl
 endif
 
@@ -317,7 +317,7 @@ endif
 
 .PHONY: install-google-cloud-sdk
 install-google-cloud-sdk: ## Install the google cloud sdk (gcloud, gsutil, etc)
-ifdef SUDO_USER
+ifndef SUDO_USER
 ifeq ($(OS_NAME), Linux)
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 	install -D $(MAKE_PATH)sources.list.d/google-cloud.$(RELEASE).list /etc/apt/sources.list.d
