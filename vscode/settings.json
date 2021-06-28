@@ -30,7 +30,7 @@
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
     "gitlens.codeLens.enabled": false,
-    "workbench.iconTheme": "kary-notebook-icons",
+    "workbench.iconTheme": "vscode-icons",
     "files.exclude": {
         "**/__pycache__": true,
         "**/*.pyc": true
@@ -61,12 +61,9 @@
         "editor.insertSpaces": true
     },
     "extensions.ignoreRecommendations": true,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
     "workbench.colorCustomizations": {
         "terminal.background":"#15181b",
         "terminal.foreground":"#ADADAD",
