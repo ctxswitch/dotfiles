@@ -56,7 +56,8 @@ VSCODE_EXTENSIONS ?= bungcip.better-toml eamodio.gitlens \
 	ms-vsliveshare.vsliveshare rebornix.ruby redhat.vscode-yaml \
 	rust-lang.rust sidneys1.gitconfig swashata.beautiful-ui \
 	teabyii.ayu vscode-icons-team.vscode-icons wingrunr21.vscode-ruby \
-	GitHub.github-vscode-theme
+	GitHub.github-vscode-theme msjsdiag.vscode-react-native \
+	ms-vscode.vscode-typescript-next 
 ifeq ($(OS_NAME), Darwin)
 VSCODE_CONFIG_PATH ?= Library/Application Support/Code/User
 else
@@ -212,7 +213,7 @@ ifndef SUDO_USER
 ##	NONINTERACTIVE=1 ./brew/install.sh
 ##	xcode-select --install
 ## 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
-	brew install zsh
+##	brew install zsh
 	brew install python3
 	brew install git
 	brew install jq
