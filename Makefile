@@ -316,20 +316,20 @@ else
 endif
 endif
 
-.PHONY: install-google-cloud-sdk
-install-google-cloud-sdk: ## Install the google cloud sdk (gcloud, gsutil, etc)
-ifndef SUDO_USER
-ifeq ($(OS_NAME), Linux)
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-	install -D $(MAKE_PATH)sources.list.d/google-cloud.$(RELEASE).list /etc/apt/sources.list.d
-	apt-get -y update
-	apt -y install google-cloud-sdk
-else
-	curl -LSso tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-340.0.0-darwin-x86_64.tar.gz
-	tar zxvf tmp/google-cloud-sdk.tar.gz -C tmp
-	./tmp/google-cloud-sdk/install.sh
-endif
-endif
+# .PHONY: install-google-cloud-sdk
+# install-google-cloud-sdk: ## Install the google cloud sdk (gcloud, gsutil, etc)
+# ifndef SUDO_USER
+# ifeq ($(OS_NAME), Linux)
+# 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+# 	install -D $(MAKE_PATH)sources.list.d/google-cloud.$(RELEASE).list /etc/apt/sources.list.d
+# 	apt-get -y update
+# 	apt -y install google-cloud-sdk
+# else
+# 	curl -LSso tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-340.0.0-darwin-x86_64.tar.gz
+# 	tar zxvf tmp/google-cloud-sdk.tar.gz -C tmp
+# 	./tmp/google-cloud-sdk/install.sh
+# endif
+# endif
 
 ###############################################################################
 ### Update
