@@ -1,3 +1,4 @@
 fonts/.uuid
 tmp/*
 .local
+.DS_Store

@@ -46,4 +46,6 @@ export PATH=$PATH:/usr/local/kubebuilder/bin
 
 if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
 
+if [ -d /opt/homebrew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
+
 export GPG_TTY=$(tty)
