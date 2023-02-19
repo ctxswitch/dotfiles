@@ -41,3 +41,7 @@ if [ -d $(go env GOPATH)/bin ]; then
 fi
 
 export GPG_TTY=$(tty)
+
+alias code=hx
+alias vim=hx
+alias helix=hx

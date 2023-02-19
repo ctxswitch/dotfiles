@@ -95,36 +95,3 @@ $ make
 ```
 curl https://raw.githubusercontent.com/ctxswitch/dotfiles/master/bootstrap.sh | sudo bash
 ```
-
-## Targets
-
-The Makefile is broken up into 6 meta-targets:
-* `fonts` - Installs the iosevka fonts.
-* `terminal` - Installs and configures zsh and pretzo.
-* `packages` - Installs general packages with snap and apt.
-* `gnome` - Removes the ubuntu styled desktop and customized gnome settings.
-* `devtools` - Development and infrastructure tools.
-* `languages` - Set up a variety of development languages.
-
-## Variables
-
-There are several environment variables that you can set.  They include:
-
-* `ALTERNATE_RELEASE`: This is an alternate release codename in cases where the sources may not support the latest release.
-* `KUBECTL_VERSION`: Version of kubectl to download and install.
-* `DOCKER_MACHINE_VERSION`: Version of docker-machine to download and install.
-* `VAGRANT_VERSION`: Version of vagrant to download and install.
-* `TERRAFORM_VERSION`: Version of terraform to download and install.
-* `PACKER_VERSION`: Version of packer to download and install.
-* `CHEFDK_VERSION`: Version of ChefDK to download and install.
-* `CHEFDK_DEB_REVISION`: The debian revision number for ChefDK, should me 1 in most cases.
-* `HUGO_VERSION`: The hugo version to install.
-* `RUBY_VERSIONS`: A list of ruby versions to install.  Accepts any available version to rbenv: `rbenv install -l`
-* `RUBY_GEMS`: A list of gems to install for each version.  Since I use vendoring in most cases, it's usually minimal - as in rake and bundler.
-* `HUGO_VERSION`: Version of the hugo static site generator.
-* `FEX_VERSION`: The version of Jordan Sissel's field extractor [FEX](https://github.com/jordansissel/fex)
-* `GIT_USER_NAME`: Your git username.
-* `GIT_USER_EMAIL`: Your git email.
-* `GIT_USER_SIGNINGKEY`: Your users git signing key.
-* `GITHUB_USER`: Your Github username.
-* `VSCODE_EXTENSIONS`: A list of vscode extensions to install.
