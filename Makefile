@@ -22,7 +22,7 @@ GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 
 IOSEVKA_VERSION ?= 19.0.1
-IOSEVKA_PATH := https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/ttc-iosevka-$(IOSEVKA_VERSION).zip
+IOSEVKA_PATH := https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/ttf-iosevka-$(IOSEVKA_VERSION).zip
 
 include include/Common.makefile
 
