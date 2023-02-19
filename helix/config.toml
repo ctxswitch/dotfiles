@@ -1,0 +1,60 @@
+theme = "jellybeans"
+
+[editor]
+line-number = "relative"
+mouse = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+tabpad = " "
+
+[editor.indent-guides]
+render = false
+character = "┆" # "▏", "╎", "┆", "┊"
+skip-levels = 1
+
+[editor.statusline]
+left = ["mode", "selections", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "position", "position-percentage", "total-line-numbers", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+display-messages = true
+
+[keys.normal]
+C-o = ":config-open"
+C-r = ":config-reload"
+j = "move_char_left"
+k = "move_line_down"
+l = "move_line_up"
+";" = "move_char_right"
+"C-s" = "split_selection_on_newline"
+
+[keys.insert]
+C-j = "move_char_left"
+C-k = "move_line_down"
+C-l = "move_line_up"
+"C-;" = "move_char_right"
+
+
+

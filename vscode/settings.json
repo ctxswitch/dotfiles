@@ -25,7 +25,6 @@
     // Time (ms) to wait after keypress before running enabled linters. Ensures
     // linters are only run when typing has finished and not for every keypress
     "ruby.lintDebounceTime": 500,
-    "window.zoomLevel": 1,
     "workbench.colorTheme": "GitHub Dark",
     "gitlens.currentLine.enabled": false,
     "gitlens.hovers.currentLine.over": "line",
@@ -88,5 +87,12 @@
     },
     "workbench.preferredDarkColorTheme": "GitHub Dark",
     "workbench.preferredLightColorTheme": "GitHub Light",
-    "go.toolsManagement.autoUpdate": true
+    "go.toolsManagement.autoUpdate": true,
+    "react-native-tools.showUserTips": false,
+    "redhat.telemetry.enabled": false,
+    "window.zoomLevel": 1,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+    "terminal.integrated.shellIntegration.enabled": false,
+    "workbench.layoutControl.enabled": false,
+    "window.commandCenter": false
 }

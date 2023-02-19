@@ -1,0 +1,12 @@
+[[language]]
+name = "go"
+indent = { tab-width = 8, unit = "\t" }
+
+[[language]]
+name = "yaml"
+indent = { tab-width = 2, unit = " " }
+
+[[language]]
+name = "python"
+indent = { tab-width = 2, unit = " "}
+

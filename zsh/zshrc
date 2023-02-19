@@ -1,8 +1,3 @@
-# Load snap bin if snap is available
-if [[ -x /usr/bin/snap ]]; then
-  export PATH=/snap/bin:$PATH
-fi
-
 if [[ -d /Applications ]]; then
   export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 fi
@@ -15,26 +10,19 @@ fi
 export EDITOR=vim
 export GIT_EDITOR=vim
 
-if [ -d $HOME/bin ] ; then export PATH="$HOME/bin:$PATH"; fi
-if ! [ -d $HOME/go ] ; then mkdir -p $HOME/go; fi
+mkdir -p $HOME/bin
+export PATH="$HOME/bin:$PATH"
 
 # Add goroot and gopath
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=/usr/local/go/bin:$PATH
+# export GOROOT=/usr/local/go
 export PATH=/usr/local/kubebuilder/bin:$PATH
 
 # Add cargo to the path if we have rust installed
-if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
-
-# Add the Google Cloud SDK
-if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
+# if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
 
 # Add completion for kubectl
-if [ -f /usr/bin/kubectl ]; then . <(/usr/bin/kubectl completion zsh); fi
+KUBECTL_BIN=$(which kubectl)
+if [ -f ${KUBECTL_BIN} ]; then . <(${KUBECTL_BIN} completion zsh); fi
 
 # Add the path for rbenv if it exists
 if [ -d ~/.rbenv/bin ] ; then
@@ -47,5 +35,9 @@ export PATH=$PATH:/usr/local/kubebuilder/bin
 if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
 
 if [ -d /opt/homebrew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
+
+if [ -d $(go env GOPATH)/bin ]; then
+  export PATH=$(go env GOPATH)/bin:$PATH
+fi
 
 export GPG_TTY=$(tty)
