@@ -21,8 +21,8 @@ GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 
-IOSEVKA_VERSION ?= 6.1.3
-IOSEVKA_PATH := https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/01-iosevka-$(IOSEVKA_VERSION).zip
+IOSEVKA_VERSION ?= 19.0.1
+IOSEVKA_PATH := https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/ttc-iosevka-$(IOSEVKA_VERSION).zip
 
 include include/Common.makefile
 
@@ -46,10 +46,11 @@ update-submodules:
 
 .PHONY: update-fonts ## Update custom fonts
 update-fonts:
+	rm -rf /tmp/iosevka
 	mkdir /tmp/iosevka
 	curl -LSso /tmp/iosevka.zip $(IOSEVKA_PATH)
 	unzip /tmp/iosevka.zip -d /tmp/iosevka
-	rsync -av --delete /tmp/iosevka/ttf/* $(MAKE_PATH)/fonts
+	rsync -av --delete /tmp/iosevka/* $(MAKE_PATH)/fonts
 
 ###############################################################################
 ### Clean
