@@ -1,57 +1,9 @@
 [submodule "prezto"]
 	path = prezto
 	url = https://github.com/sorin-ionescu/prezto.git
-[submodule "vim/bundle/delimitMate"]
-	path = vim/bundle/delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
-[submodule "vim/bundle/tabular"]
-	path = vim/bundle/tabular
-	url = https://github.com/godlygeek/tabular.git
-[submodule "vim/bundle/vim-gitgutter"]
-	path = vim/bundle/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "vim/bundle/vim-yaml"]
-	path = vim/bundle/vim-yaml
-	url = https://github.com/stephpy/vim-yaml.git
-[submodule "vim/bundle/vim-multiple-cursors"]
-	path = vim/bundle/vim-multiple-cursors
-	url = https://github.com/terryma/vim-multiple-cursors.git
-[submodule "vim/bundle/lightline.vim"]
-	path = vim/bundle/lightline.vim
-	url = https://github.com/itchyny/lightline.vim.git
-[submodule "vim/bundle/jellybeans.vim"]
-	path = vim/bundle/jellybeans.vim
-	url = https://github.com/nanotech/jellybeans.vim.git
 [submodule "fonts"]
 	path = fonts
 	url = https://github.com/powerline/fonts
-[submodule "vim/bundle/vim-json"]
-	path = vim/bundle/vim-json
-	url = https://github.com/elzr/vim-json.git
-[submodule "vim/bundle/vim-git"]
-	path = vim/bundle/vim-git
-	url = https://github.com/tpope/vim-git.git
-[submodule "vim/bundle/vim-fugitive"]
-	path = vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/vim-sensible"]
-	path = vim/bundle/vim-sensible
-	url = https://github.com/tpope/vim-sensible.git
-[submodule "vim/bundle/vim-surround"]
-	path = vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-[submodule "vim/bundle/nerdtree"]
-	path = vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "rbenv"]
-	path = rbenv
-	url = https://github.com/rbenv/rbenv.git
-[submodule "rbenv-plugins/ruby-build"]
-	path = rbenv-plugins/ruby-build
-	url = https://github.com/rbenv/ruby-build.git
-[submodule "rbenv-plugins/rbenv-default-gems"]
-	path = rbenv-plugins/rbenv-default-gems
-	url = https://github.com/rbenv/rbenv-default-gems.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
