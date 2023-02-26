@@ -53,10 +53,21 @@ kubernetes:
 ###############################################################################
 .PHONY: lsp
 lsp:
-	npm install -g @ansible/ansible-language-server
-	npm install -g yaml-language-server
+	npm i -g @ansible/ansible-language-server
+	npm i -g yaml-language-server
 	npm i -g bash-language-server
-	npm i -g vscode-json-languageserver
+	npm i -g vscode-langservers-extracted
+	npm i -g typescript typescript-language-server
+	npm i -g pyright
+	npm i -g svelte-language-server
+	npm i -g vls
+	npm i -g dockerfile-language-server-nodejs
+	brew install marksman
+	brew install lua-language-server
+	brew install jdtls
+	brew install llvm
+	rustup component add rust-analyzer
+	sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 	/usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 
 ###############################################################################
