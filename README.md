@@ -2,13 +2,9 @@
 
 ## Installation
 
-* Install applications and dependencies. When running on Linux, log out and then log back in again to pick up new session settings and group configurations.
-
 ```sh
 $ git clone https://github.com/ctxswitch/dotfiles.git
 $ cd dotfiles
-$ make update
-$ sudo make
 ```
 
 
@@ -27,9 +23,8 @@ GIT_USER_EMAIL="rob@ctxswitch.com"
 GIT_USER_SIGNING_KEY="F0E2C3B4E2BF179D"
 ```
 
-* Set up your personal environement.  This will set up zsh, git, prezto, tmux, etc.
+* Install and configure
 
 ```sh
 $ make
 ```
-

@@ -1,29 +1,45 @@
+.DEFAULT_GOAL := all
+
 PREFIX := $(HOME)
 MAKE_PATH := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 SHELL := /bin/bash
 
-include $(MAKE_PATH).local
-
-OS_NAME := $(shell uname -s)
-OS_NAME_LOWER := $(shell echo $(OS_NAME) | tr A-Z a-z)
-OS_DIST ?= $(shell uname)
-OS_ARCH ?= $(shell uname -m)
-
-KUBERNETES_RELEASE ?= $(shell curl -L -s https://dl.k8s.io/release/stable.txt)
-KUBECTL_URL ?= https://storage.googleapis.com/kubernetes-release/release/$(KUBERNETES_RELEASE)/bin/$(OS_NAME_LOWER)/amd64/kubectl
-KIND_VERSION ?= v0.17.0
-
-GOLANG_VERSION ?= 1.19.6
-HUGO_VERSION ?= 0.55.6
+GOLANG_VERSION ?= 1.20.1
+HUGO_VERSION ?= 0.110.0
 FEX_VERSION ?= 2.0.0
+KUBERNETES_RELEASE ?= $(shell curl -L -s https://dl.k8s.io/release/stable.txt)
+KIND_VERSION ?= v0.17.0
+IOSEVKA_VERSION ?= 19.0.1
 
 GIT_USER_NAME ?= Anonymous
 GIT_USER_EMAIL ?= anonymous@gmail.com
 GIT_USER_SIGNINGKEY ?= A1E2B3BFE2AF174D
 
-IOSEVKA_VERSION ?= 19.0.1
-IOSEVKA_PATH := https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/ttf-iosevka-$(IOSEVKA_VERSION).zip
+OS_NAME := $(shell uname -s)
+OS_NAME_LOWER := $(shell echo $(OS_NAME) | tr A-Z a-z)
+OS_DIST ?= $(shell uname)
+OS_MACHINE ?= $(shell uname -m)
+$(info OS_MACHINE = '$(OS_MACHINE)')
+ifeq ($(OS_MACHINE), x86_64)
+OS_ARCH := amd64
+$(info OS_ARCH = '$(OS_ARCH)')
+else
+OS_ARCH := $(OS_MACHINE)
+$(info OS_ARCH = '$(OS_ARCH)')
+endif
 
+ifeq ($(OS_NAME), Darwin)
+FONT_PATH := $(PREFIX)/Library/Fonts
+else
+FONT_PATH := $(PREFIX)/.local/share/fonts
+endif
+
+GOLANG_URL ?= https://go.dev/dl/go$(GOLANG_VERSION).$(OS_NAME_LOWER)-$(OS_ARCH).tar.gz
+KUBECTL_URL ?= https://storage.googleapis.com/kubernetes-release/release/$(KUBERNETES_RELEASE)/bin/$(OS_NAME_LOWER)/$(OS_ARCH)/kubectl
+KIND_URL ?= https://kind.sigs.k8s.io/dl/$(KIND_VERSION)/kind-$(OS_NAME_LOWER)-$(OS_ARCH)
+IOSEVKA_URL ?= https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_VERSION)/ttf-iosevka-$(IOSEVKA_VERSION).zip
+
+include $(MAKE_PATH).local
 include include/Common.makefile
 
 ifeq ($(OS_NAME), Darwin)
@@ -32,7 +48,32 @@ else
 include include/Ubuntu.makefile
 endif
 
-all: install configure common
+all: sudo common install configure
+
+###############################################################################
+### Get sudo password before we clutter the screen
+###############################################################################
+.PHONY: sudo
+sudo:
+	# Prompt for sudo
+	$(shell sudo echo 0 > /dev/null)
+
+###############################################################################
+### Initialize
+###############################################################################
+.PHONY: init
+init:
+	curl -LSso /tmp/install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+	/bin/bash /tmp/install.sh
+ifeq ($(OS_NAME), Linux)
+	sudo apt -y install git build-essential zsh pinentry-tty pinentry-curses pinentry-gnome3 curl
+	sudo apt -y remove gnome-shell-extension-ubuntu-dock
+	# sudo apt -y install gnome-session
+	# sudo apt -y install gnome-tweaks
+	# Get rid of wayland and go back to xorg due to incompatibilities.
+	sudo install -m 0644 $(MAKE_PATH)gnome/custom.conf /etc/gdm3/custom.conf
+	sudo ln -snf /usr/share/xsessions/gnome-xorg.desktop /usr/share/xsessions/gnome.desktop
+endif
 
 ###############################################################################
 ### Update
@@ -48,7 +89,7 @@ update-submodules:
 update-fonts:
 	rm -rf /tmp/iosevka
 	mkdir /tmp/iosevka
-	curl -LSso /tmp/iosevka.zip $(IOSEVKA_PATH)
+	curl -LSso /tmp/iosevka.zip $(IOSEVKA_URL)
 	unzip /tmp/iosevka.zip -d /tmp/iosevka
 	rsync -av --delete /tmp/iosevka/* $(MAKE_PATH)/fonts
 

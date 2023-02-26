@@ -1,29 +1,66 @@
-ifdef SUDO_USER
+###############################################################################
+### Commmon installs and configurations across OSes
+###############################################################################
 .PHONY: common
-common: install-rust install-golang
+common: rust golang lsp zsh tmux git helix kubernetes fonts
 
-.PHONY: install-rust ## Install the Rust programming language
-install-rust:
+###############################################################################
+### Install brew and packages
+###############################################################################
+.PHONY: brew-packages
+brew-packages:
+	brew install gcc
+	brew install python3
+	brew install git
+	brew install jq
+	brew install bash
+	brew install npm
+	brew install podman
+	brew install helix
+	brew install protobuf
+	brew install grpc
+	brew install grpcurl
+	brew install hugo
+
+###############################################################################
+### Rust
+###############################################################################
+.PHONY: rust
+rust:
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 
-.PHONY: install-golang ## Install the Go programming language
-install-golang:
-	curl -LSso tmp/golang.tar.gz https://dl.google.com/go/go$(GOLANG_VERSION).$(OS_NAME_LOWER)-$(OS_ARCH).tar.gz
-	mkdir -p /usr/local/go
-	tar zxf tmp/golang.tar.gz --strip 1 -C /usr/local/go
+###############################################################################
+### Golang
+###############################################################################
+.PHONY: golang
+golang:
+	curl -LSso tmp/golang.tar.gz $(GOLANG_URL)
+	rm -rf /tmp/go && mkdir /tmp/go
+	sudo tar zxf tmp/golang.tar.gz --strip 1 -C /usr/local/go
+	sudo chown -R $(USER):admin /usr/local/go
 
-else
-.PHONY: common
-common: install-lsp zsh tmux git helix
+###############################################################################
+### Kubernetes
+###############################################################################
+.PHONY: kubernetes
+kubernetes:
+	curl -Lo /tmp/kind $(KIND_URL)
+	install -m 0755 -o $(USER) -g admin /tmp/kind /usr/local/bin/kind
 
-.PHONY: install-lsp
-install-lsp:
+###############################################################################
+### Language servers
+###############################################################################
+.PHONY: lsp
+lsp:
 	npm install -g @ansible/ansible-language-server
 	npm install -g yaml-language-server
 	npm i -g bash-language-server
 	npm i -g vscode-json-languageserver
-	go install golang.org/x/tools/gopls@latest
+	/usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 
+###############################################################################
+### Zsh configurations
+###############################################################################
 .PHONY: zsh
 zsh:
 	ln -snf $(MAKE_PATH)prezto $(PREFIX)/.zprezto
@@ -34,11 +71,17 @@ zsh:
 	ln -snf $(MAKE_PATH)zsh/zlogin $(PREFIX)/.zlogin
 	ln -snf $(MAKE_PATH)zsh/zpreztorc $(PREFIX)/.zpreztorc
 
+###############################################################################
+### Tmux configurations
+###############################################################################
 .PHONY: tmux
 tmux:
 	ln -snf $(MAKE_PATH)tmux $(PREFIX)/.tmux
 	ln -snf $(MAKE_PATH)tmux/tmux.conf $(PREFIX)/.tmux.conf
 
+###############################################################################
+### Git configurations
+###############################################################################
 .PHONY: git
 git:
 	@mkdir -p tmp
@@ -56,7 +99,19 @@ git:
 		}' git/.gitconfig > $(MAKE_PATH)tmp/gitconfig
 		install $(MAKE_PATH)tmp/gitconfig $(PREFIX)/.gitconfig
 
+###############################################################################
+### Helix configurations
+###############################################################################
 .PHONY: helix
 helix:
 	ln -snf $(MAKE_PATH)helix $(PREFIX)/.config/helix
+
+###############################################################################
+### Fonts
+###############################################################################
+.PHONY: fonts
+fonts:
+	ln -snfF $(MAKE_PATH)/fonts $(FONT_PATH)
+ifeq ($(OS_NAME), Linux)
+	fc-cache
 endif
