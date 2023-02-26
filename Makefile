@@ -22,19 +22,22 @@ OS_MACHINE ?= $(shell uname -m)
 $(info OS_MACHINE = '$(OS_MACHINE)')
 ifeq ($(OS_MACHINE), x86_64)
 OS_ARCH := amd64
-$(info OS_ARCH = '$(OS_ARCH)')
 else
 OS_ARCH := $(OS_MACHINE)
-$(info OS_ARCH = '$(OS_ARCH)')
 endif
+$(info OS_ARCH = '$(OS_ARCH)')
 
 ifeq ($(OS_NAME), Darwin)
 FONT_PATH := $(PREFIX)/Library/Fonts
 ADMIN_GROUP := admin
+HOMEBREW_PATH := /opt/homebrew
 else
 FONT_PATH := $(PREFIX)/.local/share/fonts
 ADMIN_GROUP := adm
+HOMEBREW_PATH := /home/linuxbrew/.linuxbrew
 endif
+
+CARGO_PATH := $(PREFIX)/.cargo
 
 GOLANG_URL ?= https://go.dev/dl/go$(GOLANG_VERSION).$(OS_NAME_LOWER)-$(OS_ARCH).tar.gz
 KUBECTL_URL ?= https://storage.googleapis.com/kubernetes-release/release/$(KUBERNETES_RELEASE)/bin/$(OS_NAME_LOWER)/$(OS_ARCH)/kubectl

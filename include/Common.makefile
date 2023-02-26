@@ -9,18 +9,18 @@ common: rust golang lsp zsh tmux git helix kubernetes fonts
 ###############################################################################
 .PHONY: brew-packages
 brew-packages:
-	brew install gcc
-	brew install python3
-	brew install git
-	brew install jq
-	brew install bash
-	brew install npm
-	brew install podman
-	brew install helix
-	brew install protobuf
-	brew install grpc
-	brew install grpcurl
-	brew install hugo
+	$(HOMEBREW_PATH)/bin/brew install gcc
+	$(HOMEBREW_PATH)/bin/brew install python3
+	$(HOMEBREW_PATH)/bin/brew install git
+	$(HOMEBREW_PATH)/bin/brew install jq
+	$(HOMEBREW_PATH)/bin/brew install bash
+	$(HOMEBREW_PATH)/bin/brew install npm
+	$(HOMEBREW_PATH)/bin/brew install podman
+	$(HOMEBREW_PATH)/bin/brew install helix
+	$(HOMEBREW_PATH)/bin/brew install protobuf
+	$(HOMEBREW_PATH)/bin/brew install grpc
+	$(HOMEBREW_PATH)/bin/brew install grpcurl
+	$(HOMEBREW_PATH)/bin/brew install hugo
 
 ###############################################################################
 ### Rust
@@ -35,7 +35,8 @@ rust:
 .PHONY: golang
 golang:
 	curl -LSso /tmp/golang.tar.gz $(GOLANG_URL)
-	rm -rf /tmp/go && mkdir /tmp/go
+	# TODO: only install if the version does not match
+	sudo rm -rf /usr/local/go/*
 	sudo mkdir -p /usr/local/go
 	sudo tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
 	sudo chown -R $(USER):$(ADMIN_GROUP) /usr/local/go
@@ -62,12 +63,12 @@ lsp:
 	npm i -g svelte-language-server
 	npm i -g vls
 	npm i -g dockerfile-language-server-nodejs
-	brew install marksman
-	brew install lua-language-server
-	brew install jdtls
-	brew install llvm
-	rustup component add rust-analyzer
-	sudo ln -s $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
+	$(HOMEBREW_PATH)/bin/brew install marksman
+	$(HOMEBREW_PATH)/bin/brew install lua-language-server
+	$(HOMEBREW_PATH)/bin/brew install jdtls
+	$(HOMEBREW_PATH)/bin/brew install llvm
+	$(CARGO_PATH)/bin/rustup component add rust-analyzer
+	sudo ln -snf $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 	/usr/local/go/bin/go install golang.org/x/tools/gopls@latest
 
 ###############################################################################
