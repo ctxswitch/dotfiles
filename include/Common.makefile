@@ -34,9 +34,9 @@ rust:
 ###############################################################################
 .PHONY: golang
 golang:
-	curl -LSso tmp/golang.tar.gz $(GOLANG_URL)
+	curl -LSso /tmp/golang.tar.gz $(GOLANG_URL)
 	rm -rf /tmp/go && mkdir /tmp/go
-	sudo tar zxf tmp/golang.tar.gz --strip 1 -C /usr/local/go
+	sudo tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
 	sudo chown -R $(USER):admin /usr/local/go
 
 ###############################################################################
@@ -96,8 +96,8 @@ git:
 				gsub("##GIT_USER_SIGNINGKEY##",key); \
 				gsub("##GITHUB_USER##",github); \
 				print \
-		}' git/.gitconfig > $(MAKE_PATH)tmp/gitconfig
-		install $(MAKE_PATH)tmp/gitconfig $(PREFIX)/.gitconfig
+		}' git/.gitconfig > /tmp/gitconfig
+		install /tmp/gitconfig $(PREFIX)/.gitconfig
 
 ###############################################################################
 ### Helix configurations
