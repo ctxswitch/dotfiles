@@ -15,7 +15,7 @@ export PATH="$HOME/bin:$PATH"
 
 # Add goroot and gopath
 # export GOROOT=/usr/local/go
-export PATH=/usr/local/kubebuilder/bin:$PATH
+export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
 
 # Add cargo to the path if we have rust installed
 # if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
