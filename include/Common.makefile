@@ -46,7 +46,7 @@ golang:
 .PHONY: kubernetes
 kubernetes:
 	curl -Lo /tmp/kind $(KIND_URL)
-	install -m 0755 -o $(USER) -g $(ADMIN_GROUP) /tmp/kind /usr/local/bin/kind
+	sudo install -m 0755 -o $(USER) -g $(ADMIN_GROUP) /tmp/kind /usr/local/bin/kind
 
 ###############################################################################
 ### Language servers
