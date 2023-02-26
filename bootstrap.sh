@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Install the dependencies
-apt -y install curl git make
+if [[ $(uname -s) == "Linux" ]]
+  apt -y install curl git make
+else
+  xcode-select --install
+fi
 
 if [[ ${GIT_METHOD} == "ssh" ]] ; then
   URL="git@github.com:ctxswitch/dotfiles.git"
@@ -14,6 +18,7 @@ if [[ -d ${PWD}/dotfiles ]] ; then
   git clone ${URL}
 fi
 
-# Update the submodules and pathogen
+# Update the submodules
 cd dotfiles
 make update
+make init

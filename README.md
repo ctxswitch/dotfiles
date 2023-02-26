@@ -3,13 +3,10 @@
 ## Installation
 
 ```sh
-$ git clone https://github.com/ctxswitch/dotfiles.git
-$ cd dotfiles
-$ make init
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ctxswitch/dotfiles/HEAD/bootstrap.sh)"
 ```
 
-
-* Import the gpg key and get the identifier for the signing key
+* Import your gpg key and get the identifier for the signing key
 
 ```
 gpg --import /path/to/signing-key.asc
