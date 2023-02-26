@@ -1,12 +1,12 @@
 ;; vim: set ft=gitconfig tw=80 noet ts=8 sw=8 :
 ;; Shamelessly 'borrowed' from @nilium
 [mailmap]
-	file = ~/.git.mailmap
+  file = ~/.git.mailmap
 
 [user]
-	name = ##GIT_USER_NAME##
-	email = ##GIT_USER_EMAIL##
-	signingKey = ##GIT_USER_SIGNINGKEY##
+  name = ##GIT_USER_NAME##
+  email = ##GIT_USER_EMAIL##
+  signingKey = ##GIT_USER_SIGNINGKEY##
 
 [core]
   editor = vim
@@ -68,18 +68,18 @@
   diffcontext = 2
 
 [mergetool]
-	prompt = false
+  prompt = false
 [mergetool "filemerge"]
-	cmd = opendiff
+  cmd = opendiff
 [mergetool "vimdiff"]
-	cmd = vimdiff
+  cmd = vimdiff
 
 [alias]
-	todo = !git grep -F -e \"TODO($(git config --global user.email | fex @1)):\" -e \"TODO:\"
-	fixme = !git grep -F -e \"FIXME($(git config --global user.email | fex @1)):\" -e \"FIXME:\"
-	alog = log --all --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %s - %an%C(reset)%C(bold yellow)%d%C(reset)'
-	fup = push --force-with-lease
-	slog = log --format=oneline
+  todo = !git grep -F -e \"TODO($(git config --global user.email | fex @1)):\" -e \"TODO:\"
+  fixme = !git grep -F -e \"FIXME($(git config --global user.email | fex @1)):\" -e \"FIXME:\"
+  alog = log --all --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %s - %an%C(reset)%C(bold yellow)%d%C(reset)'
+  fup = push --force-with-lease
+  slog = log --format=oneline
   # Borrowed/modified from user "Slipp D. Thompson"'s answer at http://stackoverflow.com/a/9074343/457812
   ;; Less general-purpose aliases
   ap = add --patch
@@ -113,10 +113,10 @@
   user = ##GITHUB_USER##
 
 [commit]
-	verbose = yes
-	gpgSign = true
+  verbose = yes
+  gpgSign = true
 [status]
-	submoduleSummary = false
+  submoduleSummary = false
 
 [include]
-	path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
