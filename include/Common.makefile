@@ -35,7 +35,7 @@ rust:
 .PHONY: golang
 golang:
 	curl -LSso /tmp/golang.tar.gz $(GOLANG_URL)
-	rm -rf /tmp/go && mkdir /tmp/go
+	rm -rf /tmp/go && mkdir /tmp/go && mkdir /usr/local/go
 	sudo tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
 	sudo chown -R $(USER):admin /usr/local/go
 
