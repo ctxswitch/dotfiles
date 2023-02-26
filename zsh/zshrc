@@ -26,7 +26,7 @@ if [ -f ${KUBECTL_BIN} ]; then . <(${KUBECTL_BIN} completion zsh); fi
 
 if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
 
-if [ "$(uname -s)" == "Darwin" ] ; then
+if [[ "$(uname -s)" == "Darwin" ]] ; then
 HOMEBREW_PATH=/opt/homebrew
 else
 HOMEBREW_PATH=/home/linuxbrew/.linuxbrew
