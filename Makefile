@@ -43,6 +43,7 @@ IOSEVKA_URL ?= https://github.com/be5invis/Iosevka/releases/download/v$(IOSEVKA_
 
 include $(MAKE_PATH).local
 include include/Common.makefile
+include include/VSCode.makefile
 
 ifeq ($(OS_NAME), Darwin)
 include include/MacOS.makefile
