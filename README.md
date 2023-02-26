@@ -5,6 +5,7 @@
 ```sh
 $ git clone https://github.com/ctxswitch/dotfiles.git
 $ cd dotfiles
+$ make init
 ```
 
 

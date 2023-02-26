@@ -64,7 +64,7 @@ sudo:
 ### Initialize
 ###############################################################################
 .PHONY: init
-init:
+init: update-submodules
 	curl -LSso /tmp/install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 	/bin/bash /tmp/install.sh
 ifeq ($(OS_NAME), Linux)
