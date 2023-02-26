@@ -30,8 +30,10 @@ endif
 
 ifeq ($(OS_NAME), Darwin)
 FONT_PATH := $(PREFIX)/Library/Fonts
+ADMIN_GROUP := admin
 else
 FONT_PATH := $(PREFIX)/.local/share/fonts
+ADMIN_GROUP := adm
 endif
 
 GOLANG_URL ?= https://go.dev/dl/go$(GOLANG_VERSION).$(OS_NAME_LOWER)-$(OS_ARCH).tar.gz

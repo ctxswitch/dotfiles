@@ -38,7 +38,7 @@ golang:
 	rm -rf /tmp/go && mkdir /tmp/go
 	sudo mkdir /usr/local/go
 	sudo tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
-	sudo chown -R $(USER):admin /usr/local/go
+	sudo chown -R $(USER):$(ADMIN_GROUP) /usr/local/go
 
 ###############################################################################
 ### Kubernetes
@@ -46,7 +46,7 @@ golang:
 .PHONY: kubernetes
 kubernetes:
 	curl -Lo /tmp/kind $(KIND_URL)
-	install -m 0755 -o $(USER) -g admin /tmp/kind /usr/local/bin/kind
+	install -m 0755 -o $(USER) -g $(ADMIN_GROUP) /tmp/kind /usr/local/bin/kind
 
 ###############################################################################
 ### Language servers
