@@ -7,32 +7,32 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-export EDITOR=vim
-export GIT_EDITOR=vim
+export EDITOR=hx
+export GIT_EDITOR=hx
 
 mkdir -p $HOME/bin
 export PATH="$HOME/bin:$PATH"
 export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
 export PATH=/usr/local/opt/llvm/bin:$PATH
+export PATH=$PATH:/usr/local/kubebuilder/bin
 
 # Add cargo to the path if we have rust installed
-# if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
+if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
 
 # Add completion for kubectl
 KUBECTL_BIN=$(which kubectl)
 if [ -f ${KUBECTL_BIN} ]; then . <(${KUBECTL_BIN} completion zsh); fi
 
-# Add the path for rbenv if it exists
-if [ -d ~/.rbenv/bin ] ; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"  
-fi
-
-export PATH=$PATH:/usr/local/kubebuilder/bin
 
 if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
 
-if [ -d /opt/homebrew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"; fi
+if [ "$(uname -s)" == "Darwin" ] ; then
+HOMEBREW_PATH=/opt/homebrew
+else
+HOMEBREW_PATH=/home/linuxbrew/.linuxbrew
+fi
+
+if [ -d $HOMEBREW_PATH ]; then eval "$($HOMEBREW_PATH/bin/brew shellenv)"; fi
 
 if [ -d $(go env GOPATH)/bin ]; then
   export PATH=$(go env GOPATH)/bin:$PATH
