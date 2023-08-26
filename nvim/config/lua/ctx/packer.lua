@@ -10,6 +10,7 @@ return require('packer').startup(function(use)
 	use('tpope/vim-fugitive')
 	use('mg979/vim-visual-multi')
 	use('leoluz/nvim-dap-go')
+	use('github/copilot.vim')
 	use({'ray-x/go.nvim',
 		requires = {
 			{'ray-x/guihua.lua'},
@@ -22,34 +23,31 @@ return require('packer').startup(function(use)
 		as = 'catppuccin'
 	})
 	use({
-		'nvim-telescope/telescope.nvim', tag = '0.1.2',
-		requires = { {'nvim-lua/plenary.nvim'} }
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.2',
+		requires = {
+			{'nvim-lua/plenary.nvim'}
+		}
 	})
 	use({
 		'nvim-treesitter/nvim-treesitter',
 		{run = ':TSUpdate'}
 	})
-	use {
-		"akinsho/toggleterm.nvim",
+	use({'akinsho/toggleterm.nvim',
 		tag = '*'
-	}
-	use {
-		'VonHeikemen/lsp-zero.nvim',
+	})
+	use({'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
 		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},             -- Required
-			{'williamboman/mason.nvim'},           -- Optional
-			{'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},     -- Required
-			{'hrsh7th/cmp-nvim-lsp'}, -- Required
-			{'L3MON4D3/LuaSnip'},     -- Required
+			{'neovim/nvim-lspconfig'},
+			{'williamboman/mason.nvim'},
+			{'williamboman/mason-lspconfig.nvim'},
+			{'hrsh7th/nvim-cmp'},
+			{'hrsh7th/cmp-nvim-lsp'},
+			{'L3MON4D3/LuaSnip'},
 		}
-	}
-	use {
-		"rcarriga/nvim-dap-ui",
+	})
+	use({'rcarriga/nvim-dap-ui',
 		requires = {"mfussenegger/nvim-dap"}
-	}
+	})
 end)
