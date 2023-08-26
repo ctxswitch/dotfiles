@@ -127,7 +127,7 @@ function initialize() {
 	fi  
 }
 
-function update-submodules()
+function update-submodules() {
 	git submodule update --init --recursive
 }
 
@@ -142,7 +142,7 @@ function eval_homebrew() {
 
 function install_homebrew_packages() {
 	eval_homebrew
-	brew install ecc
+	brew install gcc
 	brew install python3
 	brew install git
 	brew install jq
@@ -153,9 +153,9 @@ function install_homebrew_packages() {
 	brew install grpcurl
 	brew install hugo
 	brew install neovim
+	brew install tmux
 
 	brew tap homebrew/cask-fonts
-	brew install --cask font-VictorMono-nerd-font
 	brew install --cask font-victor-mono-nerd-font
 	brew install --cask font-inconsolata-nerd-font
 	brew install --cask font-inconsolata-go-nerd-font
@@ -222,7 +222,9 @@ function configure_all() {
   	install /tmp/gitconfig ${PREFIX}/.gitconfig
 
 	# Neovim
-  	git clone --depth 1 https://github.com/wbthomason/packer.nvim ${PREFIX}/.local/share/nvim/site/pack/packer/start/packer.nvim
+	if ! [ -d ${PREFIX}/.local/share/nvim/site/pack/packer/start/packer.nvim ] ; then
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim ${PREFIX}/.local/share/nvim/site/pack/packer/start/packer.nvim
+	fi
 	ln -snf ${SCRIPT_PATH}/nvim/config ${NVIM_CONFIG_PATH}
 	# TODO: Expect errors here because nvim will try to load all of the non-existent plugins.  I need to go back
 	# through and do a seperate bootstrap before the configs are linked.
