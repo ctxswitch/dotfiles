@@ -12,18 +12,15 @@
     "ruby.format": "rubocop",
     "ruby.intellisense": "rubyLocate",
     "ruby.useBundler": true,
-    // Basic settings: turn linter(s) on
     "ruby.lint": {
         "reek": false,
         "rubocop": true,
-        "ruby": false, //Runs ruby -wc
+        "ruby": false,
         "fasterer": false,
         "debride": false,
         "ruby-lint": false
     },
 
-    // Time (ms) to wait after keypress before running enabled linters. Ensures
-    // linters are only run when typing has finished and not for every keypress
     "ruby.lintDebounceTime": 500,
     "workbench.colorTheme": "GitHub Dark",
     "gitlens.currentLine.enabled": false,
@@ -90,9 +87,9 @@
     "go.toolsManagement.autoUpdate": true,
     "react-native-tools.showUserTips": false,
     "redhat.telemetry.enabled": false,
-    "window.zoomLevel": 1,
     "terminal.integrated.shellIntegration.decorationsEnabled": "never",
     "terminal.integrated.shellIntegration.enabled": false,
     "workbench.layoutControl.enabled": false,
-    "window.commandCenter": false
+    "window.commandCenter": false,
+    "window.zoomLevel": 2
 }

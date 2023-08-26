@@ -7,8 +7,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-export EDITOR=hx
-export GIT_EDITOR=hx
+export EDITOR=nvim
+export GIT_EDITOR=nvim
 
 mkdir -p $HOME/bin
 export PATH="$HOME/bin:$PATH"
@@ -38,8 +38,12 @@ if [ -d $(go env GOPATH)/bin ]; then
   export PATH=$(go env GOPATH)/bin:$PATH
 fi
 
+if [ -d $HOME/.rd/bin ]; then
+  export PATH=$HOME/.rd/bin:$PATH
+fi
+
 export GPG_TTY=$(tty)
 
-alias code=hx
-alias vim=hx
-alias helix=hx
+alias vim=nvim
+alias code=nvim
+
