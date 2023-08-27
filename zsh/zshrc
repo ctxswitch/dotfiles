@@ -1,51 +1,43 @@
-if [[ -d /Applications ]]; then
-  export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
-fi
+# Create a new tmux root session if one doesn't exist.
+tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+mkdir -p $HOME/bin
+
+KUBECTL_BIN=$(which kubectl)
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
 
-mkdir -p $HOME/bin
 export PATH="$HOME/bin:$PATH"
 export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
 export PATH=/usr/local/opt/llvm/bin:$PATH
 export PATH=$PATH:/usr/local/kubebuilder/bin
 
-# Add cargo to the path if we have rust installed
-if [ -d $HOME/.cargo/bin ] ; then export PATH="$HOME/.cargo/bin:$PATH"; fi
+HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo "/home/linuxbrew/.linuxbrew")
+[ -d $HOMEBREW_PATH ] && eval "$($HOMEBREW_PATH/bin/brew shellenv)"
 
+# Add Visual Studio Code (code) to the path if we have it installed.  This will go
+# away once I've fully migrated to nvim.
+[[ -d /Applications/Visual\ Studio\ Code.app ]] && \
+	export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
+# Add cargo to the path if we have rust installed.
+[ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
+# Add go to the path if we have it installed.
+[ -d $(go env GOPATH)/bin ] && export PATH=$(go env GOPATH)/bin:$PATH
+
+[ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+
+# Source Prezto.
+[[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 # Add completion for kubectl
-KUBECTL_BIN=$(which kubectl)
-if [ -f ${KUBECTL_BIN} ]; then . <(${KUBECTL_BIN} completion zsh); fi
+[ -f ${KUBECTL_BIN} ] && . <(${KUBECTL_BIN} completion zsh)
 
-
-if [ -f ${HOME}/.zshrc.local ]; then . ${HOME}/.zshrc.local; fi
-
-if [[ "$(uname -s)" == "Darwin" ]] ; then
-HOMEBREW_PATH=/opt/homebrew
-else
-HOMEBREW_PATH=/home/linuxbrew/.linuxbrew
-fi
-
-if [ -d $HOMEBREW_PATH ]; then eval "$($HOMEBREW_PATH/bin/brew shellenv)"; fi
-
-if [ -d $(go env GOPATH)/bin ]; then
-  export PATH=$(go env GOPATH)/bin:$PATH
-fi
-
-if [ -d $HOME/.rd/bin ]; then
-  export PATH=$HOME/.rd/bin:$PATH
-fi
-
+export GPG_TTY=$(tty)
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --exclude .git --exclude vendor'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Helper functions
 function cds() {
 	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
 	cd ${S}
@@ -66,9 +58,6 @@ function nvt() {
 	tmux split-window -v -p 20
 }
 
-export GPG_TTY=$(tty)
-
 alias vim=nvim
 alias code=nvim
-
 
