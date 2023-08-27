@@ -23,7 +23,7 @@ HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo 
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 # Add go to the path if we have it installed.
 [ -d $(go env GOPATH)/bin ] && export PATH=$(go env GOPATH)/bin:$PATH
-
+# Allow local overrides.
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
 
 # Source Prezto.
