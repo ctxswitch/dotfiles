@@ -154,6 +154,8 @@ function install_homebrew_packages() {
 	brew install hugo
 	brew install neovim
 	brew install tmux
+	brew install fzf
+	brew install fd
 
 	brew tap homebrew/cask-fonts
 	brew install --cask font-victor-mono-nerd-font
@@ -247,6 +249,9 @@ function configure_all() {
 		gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt><Super>;']"
 		${SCRIPT_PATH}/gnome/jellybeans-term.sh
   	fi
+
+	# fzf configuration
+	$(brew --prefix)/opt/fzf/install --no-update-rc --key-bindings --completion
 }
 
 function vscode() {

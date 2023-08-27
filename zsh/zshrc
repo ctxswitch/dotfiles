@@ -42,8 +42,33 @@ if [ -d $HOME/.rd/bin ]; then
   export PATH=$HOME/.rd/bin:$PATH
 fi
 
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --exclude .git --exclude vendor'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function cds() {
+	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
+	cd ${S}
+}
+
+function cdt() {
+	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
+	cd ${S}
+	N=$(basename $S)
+	tmux neww -n $N
+}
+
+function nvt() {
+	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
+	cd ${S}
+	N=$(basename $S)
+	tmux neww -n $N 'exec nvim .'
+	tmux split-window -v -p 20
+}
+
 export GPG_TTY=$(tty)
 
 alias vim=nvim
 alias code=nvim
+
 
