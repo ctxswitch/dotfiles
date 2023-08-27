@@ -1,5 +1,3 @@
-# Create a new tmux root session if one doesn't exist.
-tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
 
 mkdir -p $HOME/bin
 
@@ -7,6 +5,7 @@ KUBECTL_BIN=$(which kubectl)
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
+export GPG_TTY=$(tty)
 
 export PATH="$HOME/bin:$PATH"
 export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
@@ -18,7 +17,7 @@ HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo 
 
 # Add Visual Studio Code (code) to the path if we have it installed.  This will go
 # away once I've fully migrated to nvim.
-[[ -d /Applications/Visual\ Studio\ Code.app ]] && \
+[ -d /Applications/Visual\ Studio\ Code.app ] && \
 	export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 # Add cargo to the path if we have rust installed.
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
@@ -28,11 +27,13 @@ HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo 
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
 
 # Source Prezto.
-[[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 # Add completion for kubectl
 [ -f ${KUBECTL_BIN} ] && . <(${KUBECTL_BIN} completion zsh)
 
-export GPG_TTY=$(tty)
+# Create a new tmux root session if one doesn't exist.
+tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
+
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --exclude .git --exclude vendor'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
