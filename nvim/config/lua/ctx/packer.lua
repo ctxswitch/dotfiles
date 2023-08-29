@@ -33,9 +33,6 @@ return require('packer').startup(function(use)
 		'nvim-treesitter/nvim-treesitter',
 		{run = ':TSUpdate'}
 	})
-	use({'akinsho/toggleterm.nvim',
-		tag = '*'
-	})
 	use({'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
 		requires = {

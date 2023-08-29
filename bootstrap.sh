@@ -156,6 +156,7 @@ function install_homebrew_packages() {
 	brew install tmux
 	brew install fzf
 	brew install fd
+	brew install ripgrep
 
 	brew tap homebrew/cask-fonts
 	brew install --cask font-victor-mono-nerd-font

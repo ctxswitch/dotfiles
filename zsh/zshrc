@@ -24,19 +24,17 @@ HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo 
 # Add go to the path if we have it installed.
 [ -d $(go env GOPATH)/bin ] && export PATH=$(go env GOPATH)/bin:$PATH
 # Allow local overrides.
-[ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+[ -f ${HOME}/.zshrc.local ] && . ${HOME}/.zshrc.local
 
 # Source Prezto.
-[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ] && source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ] && . "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 # Add completion for kubectl
 [ -f ${KUBECTL_BIN} ] && . <(${KUBECTL_BIN} completion zsh)
 
-# Create a new tmux root session if one doesn't exist.
-tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --exclude .git --exclude vendor'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 
 # Helper functions
 function cds() {
@@ -59,6 +57,14 @@ function nvt() {
 	tmux split-window -v -p 20
 }
 
+function new() {
+	[ $TERM_PROGRAM != "tmux" ] && tmux has-session -t root && tmux attach -t root
+	tmux neww
+}
+
 alias vim=nvim
 alias code=nvim
+
+# Create a new tmux root session if one doesn't exist.
+tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
 
