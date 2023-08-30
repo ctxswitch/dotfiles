@@ -9,6 +9,10 @@ return require('packer').startup(function(use)
 	use('mg979/vim-visual-multi')
 	use('leoluz/nvim-dap-go')
 	use('github/copilot.vim')
+	use {
+		"cbochs/grapple.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+	}
 	use({'ray-x/go.nvim',
 		requires = {
 			{'ray-x/guihua.lua'},

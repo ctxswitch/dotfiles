@@ -16,7 +16,7 @@ IOSEVKA_VERSION=${IOSEVKA_VERSION:-19.0.1}
 
 GIT_USER_NAME=${GIT_USER_NAME:-"Anonymous"}
 GIT_USER_EMAIL=${GIT_USER_EMAIL:-"anonymous@gmail.com"}
-GIT_USER_SIGNINGKEY=${GIT_USER_SIGNINGKEY:-"A1E2B3BFE2AF174D"}
+GIT_USER_SIGNING_KEY=${GIT_USER_SIGNING_KEY:-"A1E2B3BFE2AF174D"}
 GIT_METHOD="https"
 GITHUB_USER=${GITHUB_USER:-"ctxswitch"}
 
@@ -61,7 +61,7 @@ GitHub.github-vscode-theme msjsdiag.vscode-react-native
 ms-vscode.vscode-typescript-next"
 
 export PREFIX SCRIPT_PATH GOLANG_VERSION HUGO_VERSION FEX_VERSION KUBERNETES_RELEASE \
-	KIND_VERSION GIT_USER_NAME GIT_USER_EMAIL GIT_USER_SIGNINGKEY \
+	KIND_VERSION GIT_USER_NAME GIT_USER_EMAIL GIT_USER_SIGNING_KEY \
 	OS_NAME OS_NAME_LOWER OS_DIST OS_MACHINE OS_ARCH FONT_PATH ADMIN_GROUP HOMEBREW_PATH \
 	CARGO_PATH GOLANG_URL KUBECTL_URL KIND_URL NVIM_CONFIG_PATH
 
@@ -95,7 +95,7 @@ function help() {
 	echo "Git Configuration:"
 	echo "  Username:    $GIT_USER_NAME"
 	echo "  Email:       $GIT_USER_EMAIL"
-	echo "  Signing Key: $GIT_USER_SIGNINGKEY"
+	echo "  Signing Key: $GIT_USER_SIGNING_KEY"
 	echo "  Github User: $GITHUB_USER"
 	echo
 }
@@ -213,12 +213,12 @@ function configure_all() {
 	awk \
 		-v name="${GIT_USER_NAME}" \
 		-v email="${GIT_USER_EMAIL}" \
-		-v key="${GIT_USER_SIGNINGKEY}" \
+		-v key="${GIT_USER_SIGNING_KEY}" \
 		-v github="${GITHUB_USER}" \
 		'{ \
 		gsub("##GIT_USER_NAME##",name); \
 		gsub("##GIT_USER_EMAIL##",email); \
-		gsub("##GIT_USER_SIGNINGKEY##",key); \
+		gsub("##GIT_USER_SIGNING_KEY##",key); \
 		gsub("##GITHUB_USER##",github); \
 		print \
   		}' git/.gitconfig > /tmp/gitconfig

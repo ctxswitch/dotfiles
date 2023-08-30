@@ -1,4 +1,9 @@
 vim.g.mapleader = " "
+
+vim.keymap.set("i", "{", "{}<Left>")
+vim.keymap.set("i", "[", "[]<Left>")
+vim.keymap.set("i", "(", "()<Left>")
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move selected line up or down
@@ -41,13 +46,6 @@ vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
 -- Nvimtree remaps
 vim.keymap.set("n", "<C-b>", ":NvimTreeToggle<CR>")
-
--- Telescope remaps
-vim.keymap.set('n', '<leader>pf', require('telescope.builtin').find_files, {})
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, {})
-vim.keymap.set('n', '<leader>ff', function()
-	require('telescope.builtin').grep_string({ search = vim.fn.input("search> ") });
-end)
 
 -- ToggleTerm remaps
 vim.keymap.set("t", "<esc>", "<C-\\><C-N>", { nowait = true })
