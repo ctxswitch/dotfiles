@@ -63,7 +63,7 @@ function new() {
 }
 
 alias vim=nvim
-alias code=nvim
+# alias code=nvim
 
 # Create a new tmux root session if one doesn't exist.
 tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
