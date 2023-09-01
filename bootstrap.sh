@@ -168,6 +168,27 @@ function install_homebrew_packages() {
   	brew install --cask font-iosevka-term-nerd-font
 }
 
+function install_lsp() {
+  do_sudo
+  eval_homebrew
+  npm i -g @ansible/ansible-language-server
+	npm i -g yaml-language-server
+	npm i -g bash-language-server
+	npm i -g vscode-langservers-extracted
+	npm i -g typescript typescript-language-server
+	npm i -g pyright
+	npm i -g svelte-language-server
+	npm i -g vls
+	npm i -g dockerfile-language-server-nodejs
+	brew install marksman
+	brew install lua-language-server
+	brew install jdtls
+	brew install llvm
+	rustup component add rust-analyzer
+	sudo ln -snf $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
+	go install golang.org/x/tools/gopls@latest
+}
+
 function install_rust() {
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 }
