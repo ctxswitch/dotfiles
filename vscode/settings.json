@@ -1,14 +1,12 @@
 {
-    "editor.fontLigatures": true,
-    "editor.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": false,
+    "editor.fontFamily": "'IInconsolataGoNFM','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.inlineHints.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "scm.inputFontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "scm.inputFontFamily": "'InconsolataGoNFM','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "debug.console.fontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.codeLensFontFamily": "'Iosevka','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "editor.fontSize": 13,
+    "editor.codeLensFontFamily": "'InconsolataGoNFM','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.tabSize": 2,
-    "terminal.integrated.fontSize": 13,
-    "terminal.integrated.fontFamily": "'Iosevka'",
+    "terminal.integrated.fontFamily": "'InconsolataGoNFM'",
     "ruby.format": "rubocop",
     "ruby.intellisense": "rubyLocate",
     "ruby.useBundler": true,
@@ -91,5 +89,14 @@
     "terminal.integrated.shellIntegration.enabled": false,
     "workbench.layoutControl.enabled": false,
     "window.commandCenter": false,
-    "window.zoomLevel": 1
+    "scm.inputFontSize": 14,
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+    "chat.editor.fontSize": 14,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
