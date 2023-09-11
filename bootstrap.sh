@@ -51,14 +51,15 @@ GOLANG_URL="https://go.dev/dl/go${GOLANG_VERSION}.${OS_NAME_LOWER}-${OS_ARCH}.ta
 KUBECTL_URL="https://storage.googleapis.com/kubernetes-release/release/${KUBERNETES_RELEASE}/bin/${OS_NAME_LOWER}/${OS_ARCH}/kubectl"
 KIND_URL="https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS_NAME_LOWER}-${OS_ARCH}"
 
-VSCODE_EXTENSIONS="bungcip.better-toml eamodio.gitlens
-golang.go hashicorp.terraform ms-azuretools.vscode-docker
-ms-python.python ms-python.vscode-pylance ms-vscode.cpptools
-ms-vsliveshare.vsliveshare rebornix.ruby redhat.vscode-yaml
-rust-lang.rust sidneys1.gitconfig swashata.beautiful-ui
-teabyii.ayu vscode-icons-team.vscode-icons wingrunr21.vscode-ruby
-GitHub.github-vscode-theme msjsdiag.vscode-react-native
-ms-vscode.vscode-typescript-next"
+VSCODE_EXTENSIONS="eamodio.gitlens GitHub.copilot GitHub.github-vscode-theme golang.go
+hashicorp.terraform mohsen1.prettify-json ms-azuretools.vscode-docker ms-python.isort
+ms-python.python ms-python.vscode-pylance ms-vscode-remote.remote-containers 
+ms-vscode-remote.remote-ssh ms-vscode-remote.remote-wsl
+ms-vscode-remote.vscode-remote-extensionpack ms-vscode.cpptools
+ms-vscode.remote-explorer ms-vscode.remote-server ms-vscode.vscode-typescript-next
+ms-vsliveshare.vsliveshare msjsdiag.vscode-react-native peterj.proto rebornix.ruby
+redhat.vscode-yaml rust-lang.rust-analyzer sidneys1.gitconfig swashata.beautiful-ui
+tamasfe.even-better-toml vscode-icons-team.vscode-icons wingrunr21.vscode-ruby"
 
 export PREFIX SCRIPT_PATH GOLANG_VERSION HUGO_VERSION FEX_VERSION KUBERNETES_RELEASE \
 	KIND_VERSION GIT_USER_NAME GIT_USER_EMAIL GIT_USER_SIGNING_KEY \
