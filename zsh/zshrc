@@ -11,6 +11,7 @@ export PATH="$HOME/bin:$PATH"
 export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
 export PATH=/usr/local/opt/llvm/bin:$PATH
 export PATH=$PATH:/usr/local/kubebuilder/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo "/home/linuxbrew/.linuxbrew")
 [ -d $HOMEBREW_PATH ] && eval "$($HOMEBREW_PATH/bin/brew shellenv)"
@@ -63,6 +64,8 @@ function new() {
 }
 
 alias vim=nvim
+alias k=kubectl
+alias ks="echo $(kubectl ctx -c): $(kubectl ns -c)"
 # alias code=nvim
 
 # Create a new tmux root session if one doesn't exist.

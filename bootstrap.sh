@@ -208,6 +208,8 @@ function install_kubernetes() {
 	do_sudo
 	curl -Lo /tmp/kind ${KIND_URL}
 	sudo install -m 0755 -o ${USER} -g ${ADMIN_GROUP} /tmp/kind /usr/local/bin/kind
+	
+	brew install kubectx
 }
 
 function install_all() {
