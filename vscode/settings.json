@@ -98,5 +98,6 @@
         "plaintext": false,
         "markdown": false,
         "scminput": false
-    }
+    },
+    "files.autoSave": "afterDelay"
 }

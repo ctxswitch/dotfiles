@@ -71,3 +71,7 @@ alias ks="echo $(kubectl ctx -c): $(kubectl ns -c)"
 # Create a new tmux root session if one doesn't exist.
 tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
 
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
