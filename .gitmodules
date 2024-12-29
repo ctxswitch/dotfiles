@@ -1,6 +1,6 @@
 [submodule "prezto"]
 	path = prezto
-	url = https://github.com/sorin-ionescu/prezto.git
+	url = https://github.com/ctxswitch/prezto.git
 [submodule "fonts"]
 	path = fonts
 	url = https://github.com/powerline/fonts
