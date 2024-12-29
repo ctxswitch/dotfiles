@@ -32,7 +32,7 @@ require("lspconfig").bashls.setup({})
 require("lspconfig").lua_ls.setup({})
 require("lspconfig").dockerls.setup({})
 require("lspconfig").eslint.setup({})
-require("lspconfig").tsserver.setup({})
+require("lspconfig").ts_ls.setup({})
 require("lspconfig").terraformls.setup({})
 
 -- Global configuration
