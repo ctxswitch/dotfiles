@@ -248,7 +248,7 @@ function configure_all() {
 		'{ \
 		gsub("##GIT_USER_NAME##",name); \
 		gsub("##GIT_USER_EMAIL##",email); \
-		gsub("##GIT_USER_SIGNING_KEY##",key); \
+		gsub("##GIT_USER_SIGNINGKEY##",key); \
 		gsub("##GITHUB_USER##",github); \
 		print \
   		}' git/.gitconfig > /tmp/gitconfig

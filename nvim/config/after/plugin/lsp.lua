@@ -78,12 +78,12 @@ local luasnip = require 'luasnip'
 local cmp = require 'cmp'
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    capabilities = capabilities,
-  }
-end
+-- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls' }
+-- for _, lsp in ipairs(servers) do
+--   lspconfig[lsp].setup {
+--     capabilities = capabilities,
+--   }
+-- end
 
 cmp.setup {
   snippet = {
