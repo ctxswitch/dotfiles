@@ -128,7 +128,7 @@ function initialize() {
 	fi  
 }
 
-function update-submodules() {
+function update_submodules() {
 	git submodule update --init --recursive
 }
 
@@ -146,6 +146,7 @@ function install_homebrew_packages() {
 	brew install gcc
 	brew install python3
 	brew install git
+	brew install git-town
 	brew install jq
 	brew install bash
 	brew install npm
@@ -158,6 +159,10 @@ function install_homebrew_packages() {
 	brew install fzf
 	brew install fd
 	brew install ripgrep
+	brew install gnupg gpg-agent pinentry-mac
+
+	brew install k3d
+	brew install kustomize
 
 	brew tap homebrew/cask-fonts
 	brew install --cask font-victor-mono-nerd-font
@@ -167,6 +172,7 @@ function install_homebrew_packages() {
   	brew install --cask font-iosevka-nerd-font
   	brew install --cask font-iosevka-term-font
   	brew install --cask font-iosevka-term-nerd-font
+	brew install --cask ghostty
 }
 
 function install_lsp() {
@@ -279,69 +285,61 @@ function configure_all() {
 	$(brew --prefix)/opt/fzf/install --no-update-rc --key-bindings --completion
 }
 
-function vscode() {
-	for ext in $VSCODE_EXTENSIONS; do \
-		code --install-extension $ext ;\
-	done
-		ln -snf ${SCRIPT_PATH}/vscode/settings.json "${VSCODE_CONFIG_PATH}/settings.json"
-		ln -snf ${SCRIPT_PATH}/vscode/keybindings.json "${VSCODE_CONFIG_PATH}/keybindings.json"
-	}
+function do_sudo() {
+	# Get a password for sudo so we don't need to reenter it
+	# later on.
+	sudo echo 0 > /dev/null
+}
 
-	function do_sudo() {
-		# Get a password for sudo so we don't need to reenter it
-		# later on.
-		sudo echo 0 > /dev/null
-	}
-
-	case $1 in
-		"configure")
-			echo "Configuring all applications..."
-			configure_all
-			;;
-		"update-submodules")
-			echo "Updating submodules"
-			update_submodules
-			;;
-		"update")
-			echo "Updating all submodules and fonts..."
-			update_submodules
-			;;
-		"install")
-			echo "Installing dev environment..."
-			do_sudo
-			install_all
-			;;
-		"go" | "golang" | "install-golang")
-			echo "Installing golang $GOLANG_VERSION..."
-			install_golang
-			;;
-		"rust" | "install-rust")
-			echo "Installing rust..."
-			install_rust
-			;;
-		"brew" | "install-homebrew")
-			echo "Installing homebrew packages..."
-			install_homebrew_packages
-			;;
-		"k8s" | "install-k8s" | "install-kubernetes")
-			echo "Installing kubernetes tools..."
-			install_kubernetes
-			;;
-		"vscode")
-			echo "Installing extensions and configuring..."
-			vscode
-			;;
-		"init" | "initialize")
-			echo "Initializing..."
-			initialize
-			;;
-		"help" | "-h" | "--help")
-			help
-			;;
-		*)
-			do_sudo
-			install_all
-			configure_all
-			vscode
-			;;
-	esac
+case $1 in
+	"configure")
+		echo "Configuring all applications..."
+		configure_all
+		;;
+	"update-submodules")
+		echo "Updating submodules"
+		update_submodules
+		;;
+	"update")
+		echo "Updating all submodules and fonts..."
+		update_submodules
+		;;
+	"install")
+		echo "Installing dev environment..."
+		do_sudo
+		install_all
+		;;
+	"go" | "golang" | "install-golang")
+		echo "Installing golang $GOLANG_VERSION..."
+		install_golang
+		;;
+	"rust" | "install-rust")
+		echo "Installing rust..."
+		install_rust
+		;;
+	"brew" | "install-homebrew")
+		echo "Installing homebrew packages..."
+		install_homebrew_packages
+		;;
+	"k8s" | "install-k8s" | "install-kubernetes")
+		echo "Installing kubernetes tools..."
+		install_kubernetes
+		;;
+	"vscode")
+		echo "Installing extensions and configuring..."
+		vscode
+		;;
+	"init" | "initialize")
+		echo "Initializing..."
+		initialize
+		;;
+	"help" | "-h" | "--help")
+		help
+		;;
+	*)
+		do_sudo
+		install_all
+		configure_all
+		vscode
+		;;
+esac
