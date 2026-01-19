@@ -9,8 +9,6 @@ SCRIPT_PATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 HUGO_VERSION=${HUGO_VERSION:-0.110.0}
 FEX_VERSION=${FEX_VERSION:-2.0.0}
-KUBERNETES_RELEASE=${KUBERNETES_VERSION:-$(curl -L -s https://dl.k8s.io/release/stable.txt)}
-KIND_VERSION=${KIND_VERSION:-v0.17.0}
 IOSEVKA_VERSION=${IOSEVKA_VERSION:-19.0.1}
 
 GIT_USER_NAME=${GIT_USER_NAME:-"Anonymous"}
@@ -20,7 +18,7 @@ GIT_METHOD="https"
 GITHUB_USER=${GITHUB_USER:-"ctxswitch"}
 
 OS_NAME=$(uname -s)
-OS_NAME_LOWER=$(echo $OS_NAME | tr A-Z a-z)
+OS_NAME_LOWER=$(echo "$OS_NAME" | tr 'A-Z' 'a-z')
 OS_DIST=$(uname)
 OS_MACHINE=$(uname -m)
 
@@ -32,24 +30,19 @@ fi
 
 if [[ "$OS_NAME" == "Darwin" ]] ; then
 	FONT_PATH=${PREFIX}/Library/Fonts
-	ADMIN_GROUP=admin
+	ADMIN_GROUP="admin"
 	HOMEBREW_PATH=/opt/homebrew
 else
 	FONT_PATH=${PREFIX}/.local/share/fonts
-	ADMIN_GROUP=adm
+	ADMIN_GROUP="adm"
 	HOMEBREW_PATH=/home/linuxbrew/.linuxbrew
-	# TODO: set up nvim paths for linux
 fi
 
 CARGO_PATH=${PREFIX}/.cargo
 
-KUBECTL_URL="https://storage.googleapis.com/kubernetes-release/release/${KUBERNETES_RELEASE}/bin/${OS_NAME_LOWER}/${OS_ARCH}/kubectl"
-KIND_URL="https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS_NAME_LOWER}-${OS_ARCH}"
-
-export PREFIX SCRIPT_PATH GOLANG_VERSION HUGO_VERSION FEX_VERSION KUBERNETES_RELEASE \
-	KIND_VERSION GIT_USER_NAME GIT_USER_EMAIL GIT_USER_SIGNING_KEY \
-	OS_NAME OS_NAME_LOWER OS_DIST OS_MACHINE OS_ARCH FONT_PATH ADMIN_GROUP HOMEBREW_PATH \
-	CARGO_PATH GOLANG_URL KUBECTL_URL KIND_URL NVIM_CONFIG_PATH
+export PREFIX SCRIPT_PATH HUGO_VERSION FEX_VERSION GIT_USER_NAME GIT_USER_EMAIL \
+	GIT_USER_SIGNING_KEY OS_NAME OS_NAME_LOWER OS_DIST OS_MACHINE OS_ARCH FONT_PATH \
+	ADMIN_GROUP HOMEBREW_PATH CARGO_PATH
 
 export PATH=/usr/local/go/bin:$CARGO_PATH/bin:$HOMEBREW_PATH/bin:$PATH
 
@@ -68,7 +61,6 @@ function help() {
 	echo "  Script Path:     $SCRIPT_PATH"
 	echo "  Homebrew Path:   $HOMEBREW_PATH"
 	echo "  Cargo Path:      $CARGO_PATH"
-	echo "  VSCode Path:     $VSCODE_PATH"
 	echo
 	echo "Versions:"
 	echo "  Hugo:       ${HUGO_VERSION}"
