@@ -3,5 +3,5 @@ font-feature = -liga
 font-size = 14
 font-family = "Jetbrains Mono"
 adjust-cursor-thickness = 3
-theme = rose-pine-moon
+theme = Catppuccin Mocha
 

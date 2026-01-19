@@ -7,7 +7,6 @@ fi
 PREFIX=${HOME}
 SCRIPT_PATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
-GOLANG_VERSION=${GOLANG_VERSION:-1.21.0}
 HUGO_VERSION=${HUGO_VERSION:-0.110.0}
 FEX_VERSION=${FEX_VERSION:-2.0.0}
 KUBERNETES_RELEASE=${KUBERNETES_VERSION:-$(curl -L -s https://dl.k8s.io/release/stable.txt)}
@@ -35,31 +34,17 @@ if [[ "$OS_NAME" == "Darwin" ]] ; then
 	FONT_PATH=${PREFIX}/Library/Fonts
 	ADMIN_GROUP=admin
 	HOMEBREW_PATH=/opt/homebrew
-	VSCODE_CONFIG_PATH="${PREFIX}/Library/Application Support/Code/User"
-	NVIM_CONFIG_PATH=${PREFIX}/.config/nvim
 else
 	FONT_PATH=${PREFIX}/.local/share/fonts
 	ADMIN_GROUP=adm
 	HOMEBREW_PATH=/home/linuxbrew/.linuxbrew
-	VSCODE_CONFIG_PATH="${PREFIX}/.config/Code/User"
 	# TODO: set up nvim paths for linux
 fi
 
 CARGO_PATH=${PREFIX}/.cargo
 
-GOLANG_URL="https://go.dev/dl/go${GOLANG_VERSION}.${OS_NAME_LOWER}-${OS_ARCH}.tar.gz"
 KUBECTL_URL="https://storage.googleapis.com/kubernetes-release/release/${KUBERNETES_RELEASE}/bin/${OS_NAME_LOWER}/${OS_ARCH}/kubectl"
 KIND_URL="https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS_NAME_LOWER}-${OS_ARCH}"
-
-VSCODE_EXTENSIONS="eamodio.gitlens GitHub.copilot GitHub.github-vscode-theme golang.go
-hashicorp.terraform mohsen1.prettify-json ms-azuretools.vscode-docker ms-python.isort
-ms-python.python ms-python.vscode-pylance ms-vscode-remote.remote-containers 
-ms-vscode-remote.remote-ssh ms-vscode-remote.remote-wsl
-ms-vscode-remote.vscode-remote-extensionpack ms-vscode.cpptools
-ms-vscode.remote-explorer ms-vscode.remote-server ms-vscode.vscode-typescript-next
-ms-vsliveshare.vsliveshare msjsdiag.vscode-react-native peterj.proto rebornix.ruby
-redhat.vscode-yaml rust-lang.rust-analyzer sidneys1.gitconfig swashata.beautiful-ui
-tamasfe.even-better-toml vscode-icons-team.vscode-icons wingrunr21.vscode-ruby"
 
 export PREFIX SCRIPT_PATH GOLANG_VERSION HUGO_VERSION FEX_VERSION KUBERNETES_RELEASE \
 	KIND_VERSION GIT_USER_NAME GIT_USER_EMAIL GIT_USER_SIGNING_KEY \
@@ -86,11 +71,8 @@ function help() {
 	echo "  VSCode Path:     $VSCODE_PATH"
 	echo
 	echo "Versions:"
-	echo "  Golang:     ${GOLANG_VERSION}"
 	echo "  Hugo:       ${HUGO_VERSION}"
 	echo "  Fex:        ${FEX_VERSION}"
-	echo "  Kubernetes: ${KUBERNETES_RELEASE}"
-	echo "  Kind:       ${KIND_VERSION}"
 	echo "  Iosevka:    ${IOSEVKA_VERSION}"
 	echo
 	echo "Git Configuration:"
@@ -154,15 +136,18 @@ function install_homebrew_packages() {
 	brew install grpc
 	brew install grpcurl
 	brew install hugo
-	brew install neovim
 	brew install tmux
 	brew install fzf
 	brew install fd
 	brew install ripgrep
 	brew install gnupg gpg-agent pinentry-mac
-
+	
+	brew install kubectl
 	brew install k3d
 	brew install kustomize
+	brew install kubectx
+
+	brew install go@1.24
 
 	brew tap homebrew/cask-fonts
 	brew install --cask font-victor-mono-nerd-font
@@ -183,16 +168,10 @@ function install_lsp() {
 	npm i -g bash-language-server
 	npm i -g vscode-langservers-extracted
 	npm i -g typescript typescript-language-server
-	npm i -g pyright
-	npm i -g svelte-language-server
 	npm i -g vls
 	npm i -g dockerfile-language-server-nodejs
 	brew install marksman
-	brew install lua-language-server
-	brew install jdtls
 	brew install llvm
-	rustup component add rust-analyzer
-	sudo ln -snf $(rustup which rust-analyzer) /usr/local/bin/rust-analyzer
 	go install golang.org/x/tools/gopls@latest
 }
 
@@ -200,29 +179,9 @@ function install_rust() {
 	curl https://sh.rustup.rs -sSf | bash -s -- -y --no-modify-path
 }
 
-function install_golang() {
-	do_sudo
-	curl -LSso /tmp/golang.tar.gz ${GOLANG_URL}
-	# TODO: only install if the version does not match
-	sudo rm -rf /usr/local/go/*
-	sudo mkdir -p /usr/local/go
-	sudo tar zxf /tmp/golang.tar.gz --strip 1 -C /usr/local/go
-	sudo chown -R ${USER}:${ADMIN_GROUP} /usr/local/go
-}
-
-function install_kubernetes() {
-	do_sudo
-	curl -Lo /tmp/kind ${KIND_URL}
-	sudo install -m 0755 -o ${USER} -g ${ADMIN_GROUP} /tmp/kind /usr/local/bin/kind
-	
-	brew install kubectx
-}
-
 function install_all() {
 	install_rust
-	install_golang
 	install_homebrew_packages
-	install_kubernetes
 }
 
 function configure_all() {
@@ -235,9 +194,15 @@ function configure_all() {
 	ln -snf ${SCRIPT_PATH}/zsh/zlogin ${PREFIX}/.zlogin
 	ln -snf ${SCRIPT_PATH}/zsh/zpreztorc ${PREFIX}/.zpreztorc
 
-	  # Tmux configs
+	# Tmux configs
 	ln -snf ${SCRIPT_PATH}/tmux ${PREFIX}/.tmux
 	ln -snf ${SCRIPT_PATH}/tmux/tmux.conf ${PREFIX}/.tmux.conf
+
+	# Ghostty
+	ln -snf ${SCRIPT_PATH}/ghostty ${PREFIX}/.config/ghostty
+
+	# Helix
+	ln -snf ${SCRIPT_PATH}/helix ${PREFIX}/.config/helix
 
 	# Git configuration
 	awk \
@@ -254,32 +219,8 @@ function configure_all() {
   		}' git/.gitconfig > /tmp/gitconfig
   	install /tmp/gitconfig ${PREFIX}/.gitconfig
 
-	# Neovim
-	if ! [ -d ${PREFIX}/.local/share/nvim/site/pack/packer/start/packer.nvim ] ; then
-		git clone --depth 1 https://github.com/wbthomason/packer.nvim ${PREFIX}/.local/share/nvim/site/pack/packer/start/packer.nvim
-	fi
-	ln -snf ${SCRIPT_PATH}/nvim/config ${NVIM_CONFIG_PATH}
-	# TODO: Expect errors here because nvim will try to load all of the non-existent plugins.  I need to go back
-	# through and do a seperate bootstrap before the configs are linked.
-	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
 	# Fonts
 	ln -snf ${SCRIPT_PATH}/fonts ${FONT_PATH}
-
-	# Linux specific configurations.  Revisit this
-	if [[ $OS_DIST == "Linux" ]] ; then
-		fc-cache
-		gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
-		gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 13'
-		gsettings set org.gnome.desktop.peripherals.touchpad click-method fingers
-		gsettings set org.gnome.desktop.background show-desktop-icons false
-		gsettings set org.gnome.shell.extensions.ding show-home false
-		gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Alt><Super>j']"
-		gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Primary><Alt>l']"
-		gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Primary><Alt>k']"
-		gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt><Super>;']"
-		${SCRIPT_PATH}/gnome/jellybeans-term.sh
-  	fi
 
 	# fzf configuration
 	$(brew --prefix)/opt/fzf/install --no-update-rc --key-bindings --completion
@@ -309,9 +250,9 @@ case $1 in
 		do_sudo
 		install_all
 		;;
-	"go" | "golang" | "install-golang")
-		echo "Installing golang $GOLANG_VERSION..."
-		install_golang
+	"lsp")
+		echo "Installing lsp"
+		install_lsp
 		;;
 	"rust" | "install-rust")
 		echo "Installing rust..."
@@ -320,14 +261,6 @@ case $1 in
 	"brew" | "install-homebrew")
 		echo "Installing homebrew packages..."
 		install_homebrew_packages
-		;;
-	"k8s" | "install-k8s" | "install-kubernetes")
-		echo "Installing kubernetes tools..."
-		install_kubernetes
-		;;
-	"vscode")
-		echo "Installing extensions and configuring..."
-		vscode
 		;;
 	"init" | "initialize")
 		echo "Initializing..."
@@ -340,6 +273,5 @@ case $1 in
 		do_sudo
 		install_all
 		configure_all
-		vscode
 		;;
 esac

@@ -3,8 +3,8 @@ mkdir -p $HOME/bin
 
 KUBECTL_BIN=$(which kubectl)
 
-export EDITOR=nvim
-export GIT_EDITOR=nvim
+export EDITOR=hx
+export GIT_EDITOR=hx
 export GPG_TTY=$(tty)
 
 export PATH="$HOME/bin:$PATH"
@@ -12,18 +12,13 @@ export PATH=/usr/local/go/bin:/usr/local/kubebuilder/bin:$PATH
 export PATH=/usr/local/opt/llvm/bin:$PATH
 export PATH=$PATH:/usr/local/kubebuilder/bin
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="/opt/homebrew/opt/go@1.24/bin:$PATH"
 
 HOMEBREW_PATH=$([[ "$(uname -s)" == "Darwin" ]] && echo "/opt/homebrew" || echo "/home/linuxbrew/.linuxbrew")
 [ -d $HOMEBREW_PATH ] && eval "$($HOMEBREW_PATH/bin/brew shellenv)"
 
-# Add Visual Studio Code (code) to the path if we have it installed.  This will go
-# away once I've fully migrated to nvim.
-[ -d /Applications/Visual\ Studio\ Code.app ] && \
-	export PATH=$PATH:/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 # Add cargo to the path if we have rust installed.
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
-# Add go to the path if we have it installed.
-[ -d $(go env GOPATH)/bin ] && export PATH=$(go env GOPATH)/bin:$PATH
 # Allow local overrides.
 [ -f ${HOME}/.zshrc.local ] && . ${HOME}/.zshrc.local
 
@@ -50,11 +45,17 @@ function cdt() {
 	tmux neww -n $N
 }
 
-function nvt() {
+function hxs() {
+	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
+	cd ${S}
+	hx .
+}
+
+function hxt() {
 	S=$(FZF_DEFAULT_COMMAND="fd . --type d --max-depth 3 --exclude .git --exclude vendor --exclude node_modules ~/src" fzf)
 	cd ${S}
 	N=$(basename $S)
-	tmux neww -n $N 'exec nvim .'
+	tmux neww -n $N 'exec hx .'
 	tmux split-window -v -p 20
 }
 
@@ -63,10 +64,9 @@ function new() {
 	tmux neww
 }
 
-alias vim=nvim
+alias vim=hx
 alias k=kubectl
 alias ks="echo $(kubectl ctx -c): $(kubectl ns -c)"
-# alias code=nvim
 
 # Create a new tmux root session if one doesn't exist.
 tmux has-session -t root 2>/dev/null || tmux new-session -s root -d
